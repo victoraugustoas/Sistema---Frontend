@@ -1,53 +1,55 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-import './FormLogin.css'
+// import './FormLogin.css'
 
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const initialState = {
-	redirect: false,
 	email: '',
 	password: ''
 }
-const baseUlr = 'http://localhost:3001/login'
+const baseUlr = 'http://localhost:3001/users'
 
 class App extends Component {
-
 	constructor(props) {
 		super(props)
 
 		this.state = initialState
 
 		this.updateField = this.updateField.bind(this)
-		this.login = this.login.bind(this)
-		this.renderRedirect = this.renderRedirect.bind(this)
+		this.save = this.save.bind(this)
 
 		this.textEmailInput = React.createRef()
 		this.invalidEmailFeedback = React.createRef()
 		this.validEmailFeedback = React.createRef()
+		this.passwordField = React.createRef()
+		this.msgSuccess = React.createRef()
 	}
 
-	renderRedirect() {
-		if(this.state.redirect){
-			return <Redirect to='/logged' />
-		}
-	}
-
-	login(e) {
+	save(e) {
 		e.preventDefault()
-		
-		let user = { ...this.state }
-		delete user.redirect
 
-		axios.post(`${baseUlr}`, user)
+		axios.post(baseUlr, this.state)
 			.then(resp => resp.data)
-			.then(verified => {
-				if (verified.verified) {
-					this.setState({redirect: true})
-					this.renderRedirect()
-				} else {
-					console.log('deu ruim')
+			.catch(msg => {
+				if (msg.response.status === 400) {
+					this.invalidEmailFeedback.current.innerHTML = msg.response.data
+					this.textEmailInput.current.classList.add('is-invalid')
+					this.textEmailInput.current.classList.remove('is-valid')
+					return true
+				}
+			}).then((passed) => {
+				if (!passed) {
+					this.setState({ ...initialState })
+
+					this.textEmailInput.current.value = ''
+					this.passwordField.current.value = ''
+
+					this.msgSuccess.current.classList.add('alert', 'alert-success')
+					this.msgSuccess.current.classList.remove('d-none')
+
+					this.validEmailFeedback.current.innerHTML = ''
+					this.textEmailInput.current.classList.remove('is-valid')
+					this.invalidEmailFeedback.current.innerHTML = ''
 				}
 			})
 	}
@@ -99,11 +101,20 @@ class App extends Component {
 				</div>
 				<div className="form-group">
 					<label htmlFor="exampleInputPassword1">Password</label>
-					<input type="password" onChange={this.updateField} className="form-control" id="password" placeholder="Password" />
+					<input
+						ref={this.passwordField}
+						type="password"
+						onChange={this.updateField}
+						className="form-control"
+						id="password"
+						placeholder="Password" />
 				</div>
 				<div className="form-group">
-					<input onClick={this.login} type="submit" className="btn btn-primary" value="Login" />
-					<Link to="/signup" className="ml-3 btn btn-secondary">Cadastrar</Link>
+					<input onClick={this.save} type="submit" className="btn btn-primary" value="Salvar" />
+				</div>
+				<div className="form-group">
+					<p ref={this.msgSuccess} className="d-none">Cadastro realizado com sucesso!</p>
+
 				</div>
 			</form>
 		)
@@ -112,7 +123,6 @@ class App extends Component {
 	render() {
 		return (
 			<div className="Form">
-				{this.renderRedirect()}
 				{this.renderForm()}
 			</div>
 		);
