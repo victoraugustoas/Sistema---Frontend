@@ -9,11 +9,14 @@ import AddCategory from '../admin/AddCategory'
 
 // Import Pages
 import Main from '../pages/Main'
+import Post from '../components/Post/Post'
 import AddPost from '../admin/AddPost'
+
 
 export default props => (
     <Switch>
         <Route exact path="/" component={Main} />
+        <Route path="/post/*" component={Post} />
 
         <Route path="/admin/login" component={FormLogin} />
         <Route path="/admin/signup" component={FormSignUp} />
