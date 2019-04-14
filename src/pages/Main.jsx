@@ -1,18 +1,71 @@
-import React from 'react'
+import React, { Component } from 'react'
+
+import axios from 'axios'
 
 import Navbar from '../components/Navbar/Navbar'
 
-export default props => (
-    <React.Fragment>
-        <Navbar />
-        <div className="container mt-4">
-            <div className="jumbotron">
-                <h1 className="display-4">Hello, world!</h1>
-                <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <hr className="my-4" />
-                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                <a className="btn btn-primary btn-lg" href="/" role="button">Learn more</a>
-            </div>
-        </div>
-    </React.Fragment>
-)
+class Main extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            posts: []
+        }
+
+        this.baseURL = 'http://localhost:3001'
+        this.convertTextToBlob = this.convertTextToBlob.bind(this)
+    }
+
+    componentWillMount() {
+        axios.get(`${this.baseURL}/posts`)
+            .then(resp => resp.data)
+            .then(data => {
+                this.setState({ posts: data })
+            })
+            .catch(err => console.log(err))
+    }
+
+    convertTextToBlob() {
+        let posts = this.state.posts
+
+        console.log(posts)
+    }
+
+    renderPosts() {
+        let postCards = (id, title) =>
+            <a href={`/post/${id}`}>
+                <div key={id.toString()} className="card mb-3" style={{ maxWidth: "540px" }} >
+                    <div className="row no-gutters">
+                        <div className="col-md-4">
+                            <img src='...' className="card-img" alt="..." />
+                        </div>
+                        <div className="col-md-8">
+                            <div className="card-body">
+                                <h5 className="card-title">{title}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </ div>
+            </a>
+
+        return (
+            this.state.posts.map((post, idx) => {
+                return postCards(post.id, post.title)
+            })
+        )
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Navbar />
+                <div className="container mt-2">
+                    {this.renderPosts()}
+                </div>
+            </React.Fragment>
+        )
+    }
+}
+
+export default Main
