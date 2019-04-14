@@ -10,7 +10,8 @@ class Main extends Component {
         super(props)
 
         this.state = {
-            posts: []
+            posts: [],
+            categories: []
         }
 
         this.baseURL = 'http://localhost:3001'
@@ -18,6 +19,13 @@ class Main extends Component {
     }
 
     componentWillMount() {
+        axios.get(`${this.baseURL}/categories`)
+            .then(resp => resp.data)
+            .then(data => {
+                this.setState({ categories: data })
+            })
+            .catch(err => console.log(err))
+
         axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
@@ -59,7 +67,7 @@ class Main extends Component {
     render() {
         return (
             <React.Fragment>
-                <Navbar />
+                <Navbar categories={this.state.categories} />
                 <div className="container mt-2">
                     {this.renderPosts()}
                 </div>
