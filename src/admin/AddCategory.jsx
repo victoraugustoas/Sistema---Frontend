@@ -7,9 +7,9 @@ export default class AddCategory extends Component {
         super(props)
 
         this.state = {
-            name: '',
+            title: '',
             fatherCategory: '',
-            fatherCategoryDB: [{ name: 'selecione', id: 0 }],
+            fatherCategoryDB: [{ title: 'selecione', id: 0 }],
             description: ''
         }
 
@@ -51,7 +51,7 @@ export default class AddCategory extends Component {
     handleChange(e) {
         switch (e.target.id) {
             case 'nameCategory':
-                this.setState({ name: e.target.value })
+                this.setState({ title: e.target.value })
                 break
             default:
                 this.setState({ description: e.target.value })
@@ -66,7 +66,7 @@ export default class AddCategory extends Component {
                 <div className="card-body">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="nameCategory">Nome:</label>
+                            <label htmlFor="nameCategory">Titulo:</label>
                             <input
                                 onChange={this.handleChange}
                                 className="form-control"
@@ -83,7 +83,7 @@ export default class AddCategory extends Component {
                                 className="form-control"
                                 id="fatherCategory">
                                 {this.state.fatherCategoryDB.map((category, idx) => {
-                                    return <option key={idx.toString()} className="form-control" value={category.id} defaultValue="selected">{category.name}</option>
+                                    return <option key={idx.toString()} className="form-control" value={category.id} defaultValue="selected">{category.title}</option>
                                 })}
                             </select>
                         </div>
