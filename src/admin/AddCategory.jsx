@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 export default class AddCategory extends Component {
@@ -7,6 +8,7 @@ export default class AddCategory extends Component {
         super(props)
 
         this.state = {
+            redirect: false,
             title: '',
             fatherCategory: '',
             fatherCategoryDB: [{ title: 'selecione', id: 0 }],
@@ -16,7 +18,10 @@ export default class AddCategory extends Component {
         this.baseURL = 'http://localhost:3001/categories'
         this.handleChange = this.handleChange.bind(this)
         this.save = this.save.bind(this)
+
         this.fatherCategory = React.createRef()
+        this.sucess = React.createRef()
+        this.fail = React.createRef()
     }
 
     componentWillMount() {
@@ -30,22 +35,64 @@ export default class AddCategory extends Component {
 
     save(e) {
         e.preventDefault()
+        let data = null
 
+        // caso a categoria pai não seja nenhuma
         if (this.state.fatherCategory !== '0') {
-            const data = { ...this.state }
+            data = { ...this.state }
             delete data.fatherCategoryDB
 
-            axios.post(this.baseURL, data)
-                .then(resp => console.log(resp))
         } else {
-            const data = { ...this.state }
+            // caso a categoria pai seja selecionada
+            data = { ...this.state }
 
             delete data.fatherCategoryDB
             data.fatherCategory = ''
-
-            axios.post(this.baseURL, data)
-                .then(resp => console.log(resp))
         }
+
+        axios.post(this.baseURL, data)
+            .then(resp => {
+
+                // criada com sucesso
+                if (resp.status === 201) {
+                    let msgRedirect = document.createElement('div')
+                    let msgServer = document.createElement('p')
+                    msgServer.innerHTML = resp.data
+
+                    this.sucess.current.appendChild(msgServer)
+                    this.sucess.current.appendChild(msgRedirect)
+
+                    this.sucess.current.classList.remove('d-none')
+                    this.fail.current.classList.add('d-none')
+
+                    // redireciona após 10 segundos
+                    setTimeout(() => {
+                        this.setState({ redirect: true })
+                    }, 10 * 1000)
+
+                    this.refreshText(10, msgRedirect)
+                }
+            }).catch((err) => {
+                let msgServer = document.createElement('div')
+                msgServer.innerHTML = err.response.data.msg
+
+                this.fail.current.appendChild(msgServer)
+
+                this.fail.current.classList.remove('d-none')
+            })
+    }
+
+    refreshText(seg, elem) {
+        // atualiza o texto de redirecinamento
+        let sec = seg
+
+        setInterval(() => {
+            sec -= 1
+        }, 1000)
+
+        setInterval(() => {
+            elem.innerHTML = `Redirecionando em ${sec} segundos`
+        }, 10);
     }
 
     handleChange(e) {
@@ -64,7 +111,7 @@ export default class AddCategory extends Component {
         return (
             <div className="card">
                 <div className="card-body">
-                    <form>
+                    <form onSubmit={this.save}>
                         <div className="form-group">
                             <label htmlFor="nameCategory">Titulo:</label>
                             <input
@@ -72,6 +119,7 @@ export default class AddCategory extends Component {
                                 className="form-control"
                                 type="text"
                                 id="nameCategory"
+                                required
                                 placeholder="Digite o nome da categoria" />
                         </div>
 
@@ -95,11 +143,12 @@ export default class AddCategory extends Component {
                                 className="form-control"
                                 type="text"
                                 id="description"
+                                required
                                 maxLength="150" />
                         </div>
 
                         <div className="form-group">
-                            <input onClick={this.save} type='submit' className="btn btn-success" value='Cadastrar' />
+                            <input type='submit' className="btn btn-success" value='Cadastrar' />
                         </div>
                     </form>
 
@@ -110,12 +159,15 @@ export default class AddCategory extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <div className="container mt-4">
-                    <h3>Adicionar Categoria</h3>
-                    {this.renderForm()}
-                </div>
-            </React.Fragment>
+            this.state.redirect ? <Redirect to='/' /> :
+                <React.Fragment>
+                    <div className="container mt-4">
+                        <div ref={this.fail} className="alert alert-danger d-none" role="alert"></div>
+                        <div ref={this.sucess} className="alert alert-success d-none" role="alert"></div>
+                        <h3>Adicionar Categoria</h3>
+                        {this.renderForm()}
+                    </div>
+                </React.Fragment>
         )
     }
 }
