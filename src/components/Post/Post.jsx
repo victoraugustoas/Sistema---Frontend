@@ -53,7 +53,7 @@ export default class Post extends Component {
                 <div className="container">
                     <h1>{this.state.post.title}</h1>
                     <h5><a href='/'>{this.state.category.title}</a></h5>
-                    <small className="text-muted">Last updated 3 mins ago</small>
+                    <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
                     <hr />
                     <div className="text">
                         {this.state.post.content ? parse(this.state.post.content) : ''}
