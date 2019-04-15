@@ -15,7 +15,6 @@ class Main extends Component {
         }
 
         this.baseURL = 'http://localhost:3001'
-        this.convertTextToBlob = this.convertTextToBlob.bind(this)
     }
 
     componentWillMount() {
@@ -34,19 +33,13 @@ class Main extends Component {
             .catch(err => console.log(err))
     }
 
-    convertTextToBlob() {
-        let posts = this.state.posts
-
-        console.log(posts)
-    }
-
     renderPosts() {
-        let postCards = (id, title) =>
-            <a href={`/post/${id}`}>
-                <div key={id.toString()} className="card mb-3" style={{ maxWidth: "540px" }} >
+        let postCards = (id, title, url) =>
+            <a className="mr-3" href={`/post/${id}`}>
+                <div key={id} className="card mb-3" style={{ maxWidth: "540px" }} >
                     <div className="row no-gutters">
                         <div className="col-md-4">
-                            <img src='...' className="card-img" alt="..." />
+                            <img src={url} className="card-img" alt="..." />
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
@@ -58,8 +51,8 @@ class Main extends Component {
             </a>
 
         return (
-            this.state.posts.map((post, idx) => {
-                return postCards(post.id, post.title)
+            this.state.posts.map((post) => {
+                return postCards(post._id, post.title, `http://localhost:3001/uploads/${post.image}`)
             })
         )
     }
@@ -69,7 +62,9 @@ class Main extends Component {
             <React.Fragment>
                 <Navbar categories={this.state.categories} />
                 <div className="container mt-2">
-                    {this.renderPosts()}
+                    <div className="row">
+                        {this.renderPosts()}
+                    </div>
                 </div>
             </React.Fragment>
         )
