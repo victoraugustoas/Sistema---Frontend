@@ -1,0 +1,51 @@
+.navbar {
+    border-bottom: 1px solid #f1b934;
+    position: sticky;
+    top: 0;
+}
+
+.icon-menu {
+    color: #f1b934;
+}
+
+
+/* logo */
+
+.logo {
+    width: 200px;
+}
+
+.logo img {
+    height: 100%;
+}
+
+
+/* cores dropdown */
+
+.dropdown-menu,
+.dropdown-item {
+    color: #b08215;
+    background-color: black;
+}
+
+.dropdown-item:hover {
+    color: white;
+    background-color: #f1b934;
+}
+
+
+/* cor botão menu */
+
+.button {
+    color: #b08215;
+    border: 1px solid #b08215;
+}
+
+.button:hover {
+    color: #f1b934;
+    border: 1px solid #f1b934;
+}
+
+.button:focus {
+    outline: 0;
+}
