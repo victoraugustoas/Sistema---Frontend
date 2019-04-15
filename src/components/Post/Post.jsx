@@ -11,6 +11,7 @@ export default class Post extends Component {
         super(props)
 
         this.state = {
+            categories: [],
             post: {},
             category: {}
         }
@@ -19,20 +20,28 @@ export default class Post extends Component {
     }
 
     componentDidMount() {
+
+        axios.get(`${this.baseURL}/categories`)
+            .then(resp => resp.data)
+            .then(data => {
+                this.setState({ categories: data })
+            })
+            .catch(err => console.log(err))
+
         let id = window.location.href.split('/post/')[1]
 
         axios.get(`${this.baseURL}/posts/${id}`)
             .then(resp => resp.data)
             .then(data => {
+                console.log(data)
                 this.setState({ post: data })
 
-                axios.get(`${this.baseURL}/categories/${this.state.post.fatherCategory}`)
+                axios.get(`${this.baseURL}/categories/${this.state.post.category}`)
                     .then(resp => resp.data)
                     .then(data => {
                         this.setState({ category: data })
                     })
                     .catch(err => console.log(err))
-
             })
             .catch(err => console.log(err))
     }
@@ -40,14 +49,14 @@ export default class Post extends Component {
     render() {
         return (
             <React.Fragment>
-                <Navbar />
+                <Navbar categories={this.state.categories} />
                 <div className="container">
                     <h1>{this.state.post.title}</h1>
-                    <h5><a href='/'>{this.state.category.name}</a></h5>
+                    <h5><a href='/'>{this.state.category.title}</a></h5>
                     <small className="text-muted">Last updated 3 mins ago</small>
                     <hr />
                     <div className="text">
-                        {this.state.post.textEditor ? parse(this.state.post.textEditor) : ''}
+                        {this.state.post.content ? parse(this.state.post.content) : ''}
                     </div>
                 </div>
             </React.Fragment>
