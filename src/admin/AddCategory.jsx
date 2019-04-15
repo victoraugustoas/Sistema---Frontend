@@ -57,7 +57,7 @@ export default class AddCategory extends Component {
                 if (resp.status === 201) {
                     let msgRedirect = document.createElement('div')
                     let msgServer = document.createElement('p')
-                    msgServer.innerHTML = resp.data
+                    msgServer.innerHTML = resp.data.msg
 
                     this.sucess.current.appendChild(msgServer)
                     this.sucess.current.appendChild(msgRedirect)
