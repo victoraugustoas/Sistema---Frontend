@@ -109,15 +109,15 @@ class AddPost extends Component {
                     this.sucess.current.appendChild(msgServer)
                     this.sucess.current.appendChild(msgRedirect)
 
-                    this.sucess.current.classList.remove('d-none')
-                    this.fail.current.classList.add('d-none')
+                    this.sucess.current.classList.remove('invisible')
+                    this.fail.current.classList.add('invisible')
 
                     // redireciona após 10 segundos
                     setTimeout(() => {
                         this.setState({ redirect: true })
-                    }, 10 * 1000)
+                    }, 5 * 1000)
 
-                    this.refreshText(10, msgRedirect)
+                    this.refreshText(5, msgRedirect)
                 }
             })
             .catch(err => {
@@ -126,7 +126,7 @@ class AddPost extends Component {
 
                 this.fail.current.appendChild(msgServer)
 
-                this.fail.current.classList.remove('d-none')
+                this.fail.current.classList.remove('invisible')
             })
     }
 
@@ -187,19 +187,19 @@ class AddPost extends Component {
                 <hr />
                 <h5>Conteúdo</h5>
                 <TextEditor onChange={this.textEditorChange} />
-                <button className="btn btn-success mt-2" type='submit'>Cadastrar</button>
+                <button className="btn btn-success mt-2" onClick={() => window.location = window.location.href + `#inicio`} type='submit'>Cadastrar</button>
             </form>
         )
     }
 
     render() {
         return this.redirect() || (
-            < div className='container mt-4 mb-4' >
-                <div ref={this.fail} className="alert alert-danger d-none" role="alert"></div>
-                <div ref={this.sucess} className="alert alert-success d-none" role="alert"></div>
+            <div id="inicio" className='container mt-4 mb-4'>
+                <div ref={this.fail} className="alert alert-danger invisible" role="alert"></div>
+                <div ref={this.sucess} className="alert alert-success invisible" role="alert"></div>
                 <h2>Adicionar um post</h2>
                 {this.renderForm()}
-            </div >
+            </div>
         )
     }
 }
