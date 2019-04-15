@@ -3,6 +3,11 @@
     border: 1px solid #b08215;
 }
 
+.card-post .link-card-post {
+    text-decoration: none;
+    color: white;
+}
+
 .card-post:hover {
     border: 1px solid #f1b934;
     box-shadow: 0 4px 8px 0 #b081153f, 0 6px 20px 0 #b081153f;
