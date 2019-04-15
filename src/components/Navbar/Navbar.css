@@ -2,28 +2,27 @@
     border-bottom: 1px solid #f1b934;
     position: sticky;
     top: 0;
+    z-index: 1000;
+    background-color: black;
 }
 
 .icon-menu {
     color: #f1b934;
 }
 
-
 /* logo */
 
 .logo {
-    width: 200px;
+    width: 150px;
 }
 
 .logo img {
-    height: 100%;
+    width: 100%;
 }
-
 
 /* cores dropdown */
 
-.dropdown-menu,
-.dropdown-item {
+.dropdown-menu, .dropdown-item {
     color: #b08215;
     background-color: black;
 }
@@ -32,7 +31,6 @@
     color: white;
     background-color: #f1b934;
 }
-
 
 /* cor botão menu */
 
