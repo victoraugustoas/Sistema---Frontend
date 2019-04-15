@@ -12,8 +12,8 @@ class AddPost extends Component {
         this.state = {
             redirect: false,
             title: '',
-            file: '',
-            textEditor: '',
+            file: null,
+            content: '',
             fatherCategory: '',
             fatherCategoryDB: [{ name: 'selecione', id: 0 }],
         }
@@ -29,6 +29,9 @@ class AddPost extends Component {
         this.save = this.save.bind(this)
         this.redirect = this.redirect.bind(this)
         this.validCategory = this.validCategory.bind(this)
+
+        this.fail = React.createRef()
+        this.sucess = React.createRef()
     }
 
     componentWillMount() {
@@ -51,28 +54,6 @@ class AddPost extends Component {
         reader.readAsDataURL(this.inputImg.current.files[0])
     }
 
-    convertBlobAsText() {
-        const readerImg = new FileReader()
-
-        readerImg.addEventListener('loadend', (e) => {
-            this.setState({
-                file: {
-                    ...this.state.file,
-                    content: e.srcElement.result
-                }
-            })
-        })
-
-        this.setState({
-            file: {
-                name: this.inputImg.current.files[0].name,
-                blobType: this.inputImg.current.files[0].type,
-            }
-        })
-
-        readerImg.readAsText(this.inputImg.current.files[0])
-    }
-
     validCategory() {
         if (this.fatherCategory.current.value === '0') {
             this.fatherCategory.current.classList.add('is-invalid')
@@ -87,7 +68,7 @@ class AddPost extends Component {
                 this.setState({ title: e.target.value })
                 break
             case 'img':
-                this.convertBlobAsText()
+                this.setState({ file: this.inputImg.current.files[0] })
                 this.previewImage()
                 break
             default:
@@ -99,7 +80,7 @@ class AddPost extends Component {
     }
 
     textEditorChange(value) {
-        this.setState({ textEditor: value })
+        this.setState({ content: value })
     }
 
     redirect() {
@@ -111,64 +92,113 @@ class AddPost extends Component {
         const data = { ...this.state }
         delete data.fatherCategoryDB
 
-        axios.post(`${this.baseURL}/posts`, data)
-            .then(data => data.status)
-            .then(status => {
-                if (status === 201) {
-                    this.setState({ redirect: true })
-                } else {
-                    console.log(status)
+        const form = new FormData()
+        form.append('title', this.state.title)
+        form.append('content', this.state.content)
+        form.append('file', this.state.file)
+        form.append('category', this.state.fatherCategory)
+
+        axios.post(`${this.baseURL}/posts`, form)
+            .then(resp => {
+                // criada com sucesso
+                if (resp.status === 201) {
+                    let msgRedirect = document.createElement('div')
+                    let msgServer = document.createElement('p')
+                    msgServer.innerHTML = resp.data.msg
+
+                    this.sucess.current.appendChild(msgServer)
+                    this.sucess.current.appendChild(msgRedirect)
+
+                    this.sucess.current.classList.remove('d-none')
+                    this.fail.current.classList.add('d-none')
+
+                    // redireciona após 10 segundos
+                    setTimeout(() => {
+                        this.setState({ redirect: true })
+                    }, 10 * 1000)
+
+                    this.refreshText(10, msgRedirect)
                 }
             })
+            .catch(err => {
+                let msgServer = document.createElement('div')
+                msgServer.innerHTML = err.response.data.msg
+
+                this.fail.current.appendChild(msgServer)
+
+                this.fail.current.classList.remove('d-none')
+            })
+    }
+
+    refreshText(seg, elem) {
+        // atualiza o texto de redirecinamento
+        let sec = seg
+
+        setInterval(() => {
+            sec -= 1
+        }, 1000)
+
+        setInterval(() => {
+            elem.innerHTML = `Redirecionando em ${sec} segundos`
+        }, 10);
+    }
+
+    renderForm() {
+        return (
+            <form onSubmit={this.save} className="needs-validation" encType="multipart/form-data">
+                <div className="form-group">
+                    <label htmlFor="title">Titulo:</label>
+                    <input
+                        onChange={this.handleChange}
+                        className="form-control"
+                        type="text"
+                        id="title"
+                        required />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="category">Categoria:</label>
+                    <select
+                        onChange={this.handleChange}
+                        ref={this.fatherCategory}
+                        className="form-control"
+                        required
+                        id="category">
+                        {this.state.fatherCategoryDB.map((category, idx) => {
+                            return <option key={idx.toString()} className="form-control" value={category._id}>{category.title}</option>
+                        })}
+                    </select>
+                    <div className='invalid-feedback'>
+                        Selecione uma categoria!
+                        </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="img">Imagem:</label>
+                    <input
+                        id='img'
+                        onChange={this.handleChange}
+                        ref={this.inputImg}
+                        className="form-control-file"
+                        type="file"
+                        required />
+                    <div ref={this.preview}></div>
+                </div>
+                <hr />
+                <h5>Conteúdo</h5>
+                <TextEditor onChange={this.textEditorChange} />
+                <button className="btn btn-success mt-2" type='submit'>Cadastrar</button>
+            </form>
+        )
     }
 
     render() {
         return this.redirect() || (
             < div className='container mt-4 mb-4' >
+                <div ref={this.fail} className="alert alert-danger d-none" role="alert"></div>
+                <div ref={this.sucess} className="alert alert-success d-none" role="alert"></div>
                 <h2>Adicionar um post</h2>
-                <form className="needs-validation">
-                    <div className="form-group">
-                        <label htmlFor="title">Titulo:</label>
-                        <input
-                            onChange={this.handleChange}
-                            className="form-control"
-                            type="text"
-                            id="title"
-                            required />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="category">Categoria:</label>
-                        <select
-                            onChange={this.handleChange}
-                            ref={this.fatherCategory}
-                            className="form-control"
-                            id="category">
-                            {this.state.fatherCategoryDB.map((category, idx) => {
-                                return <option key={idx.toString()} className="form-control" value={category.id}>{category.name}</option>
-                            })}
-                        </select>
-                        <div className='invalid-feedback'>
-                            Selecione uma categoria!
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="img">Imagem:</label>
-                        <input
-                            id='img'
-                            onChange={this.handleChange}
-                            ref={this.inputImg}
-                            className="form-control-file"
-                            type="file"
-                            required />
-                        <div ref={this.preview}></div>
-                    </div>
-                    <hr />
-                    <h5>Conteúdo</h5>
-                    <TextEditor onChange={this.textEditorChange} />
-                    <button className="btn btn-success mt-2" onClick={this.save} type='submit'>Cadastrar</button>
-                </form>
+                {this.renderForm()}
             </div >
         )
     }
