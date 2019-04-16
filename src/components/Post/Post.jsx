@@ -16,7 +16,7 @@ export default class Post extends Component {
             category: {}
         }
 
-        this.baseURL = 'http://localhost:3001'
+        this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
     }
 
     componentDidMount() {

@@ -15,7 +15,7 @@ export default class AddCategory extends Component {
             description: ''
         }
 
-        this.baseURL = 'http://localhost:3001/categories'
+        this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
         this.handleChange = this.handleChange.bind(this)
         this.save = this.save.bind(this)
 
@@ -25,7 +25,7 @@ export default class AddCategory extends Component {
     }
 
     componentWillMount() {
-        axios.get(this.baseURL)
+        axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
                 data = this.state.fatherCategoryDB.concat(data)
@@ -50,7 +50,7 @@ export default class AddCategory extends Component {
             data.fatherCategory = ''
         }
 
-        axios.post(this.baseURL, data)
+        axios.post(`${this.baseURL}/categories`, data)
             .then(resp => {
 
                 // criada com sucesso

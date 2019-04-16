@@ -27,5 +27,8 @@ build/Release
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
 
+# dados sensíveis
+.env*
+
 # arquivo de banco de dados para testes rápidos
 db.json

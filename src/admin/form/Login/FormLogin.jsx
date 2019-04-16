@@ -10,7 +10,7 @@ const initialState = {
 	email: '',
 	password: ''
 }
-const baseUlr = 'http://localhost:3001/login'
+const baseUlr = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
 
 class App extends Component {
 

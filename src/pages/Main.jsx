@@ -16,7 +16,7 @@ class Main extends Component {
             categories: []
         }
 
-        this.baseURL = 'http://localhost:3001'
+        this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
     }
 
     componentWillMount() {
@@ -50,7 +50,7 @@ class Main extends Component {
                 key={post._id}
                 title={post.title
                 }
-                urlImg={`http://localhost:3001/uploads/${post.image}`}
+                urlImg={`${this.baseURL}/uploads/${post.image}`}
                 shortDescription={'bla bla bla bla '}
                 link={`/post/${post._id}`
                 } />
@@ -64,7 +64,7 @@ class Main extends Component {
                     key={post._id}
                     title={post.title}
                     date={new Date(post.createdAt).toLocaleDateString()}
-                    urlImg={`http://localhost:3001/uploads/${post.image}`}
+                    urlImg={`${this.baseURL}/uploads/${post.image}`}
                     link={`/post/${post._id}`}
                 />
             })
