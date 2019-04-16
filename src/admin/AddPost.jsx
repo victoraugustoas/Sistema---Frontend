@@ -18,7 +18,7 @@ class AddPost extends Component {
             fatherCategoryDB: [{ name: 'selecione', id: 0 }],
         }
 
-        this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
+        this.baseURL = `http://${process.env.REACT_APP_HOST}`
 
         this.inputImg = React.createRef()
         this.preview = React.createRef()
