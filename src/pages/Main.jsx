@@ -16,7 +16,7 @@ class Main extends Component {
             categories: []
         }
 
-        this.baseURL = `http://${process.env.REACT_APP_HOST}`
+        this.baseURL = `${process.env.REACT_APP_HOST}`
     }
 
     componentWillMount() {

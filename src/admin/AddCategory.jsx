@@ -15,7 +15,7 @@ export default class AddCategory extends Component {
             description: ''
         }
 
-        this.baseURL = `http://${process.env.REACT_APP_HOST}`
+        this.baseURL = `${process.env.REACT_APP_HOST}`
         this.handleChange = this.handleChange.bind(this)
         this.save = this.save.bind(this)
 

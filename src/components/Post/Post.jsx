@@ -16,7 +16,7 @@ export default class Post extends Component {
             category: {}
         }
 
-        this.baseURL = `http://${process.env.REACT_APP_HOST}`
+        this.baseURL = `${process.env.REACT_APP_HOST}`
     }
 
     componentDidMount() {
