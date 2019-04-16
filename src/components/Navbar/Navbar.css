@@ -1,4 +1,5 @@
 .navbar {
+    grid-area: menu;
     border-bottom: 1px solid #f1b934;
     position: sticky;
     top: 0;

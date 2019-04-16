@@ -1,0 +1,11 @@
+.container-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-around;
+    grid-template-areas: 'menu menu menu' 'post post recente';
+}
+
+.recent h4 {
+    color: white;
+}

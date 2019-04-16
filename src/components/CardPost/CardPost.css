@@ -1,4 +1,5 @@
 .card-post {
+    grid-area: post;
     background-color: black;
     border: 1px solid #b08215;
 }
@@ -14,6 +15,5 @@
 }
 
 .card-post-img {
-    width: 500px;
-    min-height: 300px;
+    width: 26rem;
 }
