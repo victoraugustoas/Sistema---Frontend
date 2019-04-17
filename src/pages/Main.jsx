@@ -16,7 +16,11 @@ class Main extends Component {
             categories: []
         }
 
-        this.baseURL = `${process.env.REACT_APP_HOST}`
+        if (process.env.NODE_ENV === 'development') {
+            this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
+        } else {
+            this.baseURL = `${process.env.REACT_APP_HOST}`
+        }
     }
 
     componentWillMount() {

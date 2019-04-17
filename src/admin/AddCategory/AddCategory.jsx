@@ -15,7 +15,12 @@ export default class AddCategory extends Component {
             description: ''
         }
 
-        this.baseURL = `${process.env.REACT_APP_HOST}`
+        if (process.env.NODE_ENV === 'development') {
+            this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
+        } else {
+            this.baseURL = `${process.env.REACT_APP_HOST}`
+        }
+
         this.handleChange = this.handleChange.bind(this)
         this.save = this.save.bind(this)
 
