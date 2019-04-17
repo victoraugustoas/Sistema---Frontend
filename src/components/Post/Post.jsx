@@ -40,7 +40,7 @@ export default class Post extends Component {
                 console.log(data)
                 this.setState({ post: data })
 
-                await axios.get(`${this.baseURL}/categories/${this.state.post.category}`)
+                axios.get(`${this.baseURL}/categories/${this.state.post.category}`)
                     .then(resp => resp.data)
                     .then(data => {
                         this.setState({ category: data })
