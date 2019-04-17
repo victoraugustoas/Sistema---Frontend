@@ -72,7 +72,7 @@ class Main extends Component {
             })
         } catch (err) {
             this.setState({ error: true })
-            console.log(error)
+            console.log(err)
         }
     }
 
@@ -89,7 +89,7 @@ class Main extends Component {
             })
         } catch (err) {
             this.setState({ error: true })
-            console.log(error)
+            console.log(err)
         }
     }
 
