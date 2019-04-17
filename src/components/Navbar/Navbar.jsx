@@ -46,7 +46,7 @@ export default props => (
                     </a>
 
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        {renderCategories(props.categories)}
+                        {props.categories && renderCategories(props.categories)}
                     </div>
                 </li>
 

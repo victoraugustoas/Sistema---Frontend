@@ -104,7 +104,7 @@ class PostsCategory extends React.PureComponent {
                     <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">
                         <div className="row justify-content-center">
-                            <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Notícias sobre {this.state.category.title}</h1>
+                            {this.state.category && <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Notícias sobre {this.state.category.title}</h1>}
                         </div>
                         <div className="row justify-content-center">
                             {this.state.posts && this.renderPosts()}

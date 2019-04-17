@@ -95,19 +95,21 @@ class Main extends Component {
     render() {
         return (
             this.state.error === true ? <h1>Ocorreu um erro, recarregue a página!</h1> :
-                <div className="container-grid">
-                    <Navbar categories={this.state.categories && this.state.categories} />
-                    <div className="container mt-2">
-                        <div className="row">
-                            <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Últimas Notícias</h1>
+                <div className="container-full">
+                    <div className="container-grid">
+                        <Navbar categories={this.state.categories && this.state.categories} />
+                        <div className="container mt-2">
+                            <div className="row">
+                                <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Últimas Notícias</h1>
+                            </div>
+                            <div className="row">
+                                {this.state.posts && this.renderPosts()}
+                            </div>
                         </div>
-                        <div className="row">
-                            {this.state.posts && this.renderPosts()}
+                        <div className='recent d-flex align-items-center flex-column pt-2'>
+                            <h4>Adicionados Recentemente</h4>
+                            {this.state.posts && this.renderRecents()}
                         </div>
-                    </div>
-                    <div className='recent d-flex align-items-center flex-column pt-2'>
-                        <h4>Adicionados Recentemente</h4>
-                        {this.state.posts && this.renderRecents()}
                     </div>
                 </div>
         )
