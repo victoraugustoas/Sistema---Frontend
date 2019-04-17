@@ -83,7 +83,7 @@ class PostsCategory extends React.PureComponent {
                     <CardPost
                         title={post.title}
                         date={new Date(post.createdAt).toLocaleDateString()}
-                        urlImg={`${this.baseURL}/uploads/${post.image}`}
+                        urlImg={`${post.image}`}
                         link={`/post/${post._id}`}
                     />
                 </div>
