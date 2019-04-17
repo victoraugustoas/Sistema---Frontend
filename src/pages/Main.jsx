@@ -13,6 +13,7 @@ class Main extends Component {
         super(props)
 
         this.state = {
+            error: null,
             redirect: false,
             posts: [],
             categories: []
@@ -32,7 +33,7 @@ class Main extends Component {
                 this.setState({ categories: data })
             })
             .catch(err => {
-                this.setState({ redirect: true })
+                this.setState({ error: true })
                 console.log(err)
             })
 
@@ -42,7 +43,7 @@ class Main extends Component {
                 this.setState({ posts: data })
             })
             .catch(err => {
-                this.setState({ redirect: true })
+                this.setState({ error: true })
                 console.log(err)
             })
     }
@@ -69,8 +70,8 @@ class Main extends Component {
                     link={`/post/${post._id}`
                     } />
             })
-        } catch (error) {
-            this.setState({ redirect: true })
+        } catch (err) {
+            this.setState({ error: true })
             console.log(error)
         }
     }
@@ -86,16 +87,15 @@ class Main extends Component {
                     link={`/post/${post._id}`}
                 />
             })
-        } catch (error) {
-            this.setState({ redirect: true })
+        } catch (err) {
+            this.setState({ error: true })
             console.log(error)
         }
-
     }
 
     render() {
         return (
-            this.redirect === true ? <Redirect to='/' /> :
+            this.state.error === true ? <h1>Ocorreu um erro, recarregue a página!</h1> :
                 <div className="container-grid">
                     <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">
