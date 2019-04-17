@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
+import './PostsCategory.css'
+
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import Navbar from '../components/Navbar/Navbar'
-import CardPost from '../components/CardPost/CardPost';
-import './Main.css'
-import RecentAdded from '../components/RecentAdded/RecentAdded';
+import Navbar from '../Navbar/Navbar'
+import CardPost from '../CardPost/CardPost'
 
-
-class Main extends Component {
+class PostsCategory extends React.PureComponent {
 
     constructor(props) {
         super(props)
 
         this.state = {
+            url: window.location,
             error: null,
             redirect: false,
+            category: {},
             posts: [],
             categories: []
         }
@@ -25,11 +27,12 @@ class Main extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ categories: data })
+                this.setCategory()
             })
             .catch(err => {
                 this.setState({ error: true })
@@ -47,28 +50,25 @@ class Main extends Component {
             })
     }
 
-    renderRecents() {
+    setCategory() {
+        let categoryLocationPath = document.location.pathname.split('/category')[1]
+        let category = this.state.categories.filter((category) => {
+            return category.path === categoryLocationPath ? true : false
+        })
+        category = category[0]
+        this.setState({ category })
+    }
 
+    getCategoryPosts(id) {
         try {
             let orderByDate = { ...this.state.posts }
             // Object.entries retorna um vetor com as posições enumeráveis, ["1"] contém o objeto de fato
             orderByDate = Object.entries(orderByDate)
 
             orderByDate.sort((a, b) => a["1"].createdAt > b["1"].createdAt ? a : b)
+            let orderByDateAndCategory = orderByDate.filter((post) => post["1"].category === id ? true : false)
 
-            orderByDate = orderByDate.slice(0, 5)
-
-            return orderByDate.map((post) => {
-                post = post["1"]
-                return <RecentAdded
-                    key={post._id}
-                    title={post.title
-                    }
-                    urlImg={`${this.baseURL}/uploads/${post.image}`}
-                    shortDescription={'bla bla bla bla '}
-                    link={`/post/${post._id}`
-                    } />
-            })
+            return orderByDateAndCategory.slice(0, -1)
         } catch (err) {
             this.setState({ error: true })
             console.log(err)
@@ -77,14 +77,16 @@ class Main extends Component {
 
     renderPosts() {
         try {
-            return this.state.posts.map((post) => {
-                return <CardPost
-                    key={post._id}
-                    title={post.title}
-                    date={new Date(post.createdAt).toLocaleDateString()}
-                    urlImg={`${this.baseURL}/uploads/${post.image}`}
-                    link={`/post/${post._id}`}
-                />
+            return this.getCategoryPosts(this.state.category._id).map((post) => {
+                post = post["1"]
+                return <div key={post._id} className="col-sm-12 col-md-6 col-lg-4">
+                    <CardPost
+                        title={post.title}
+                        date={new Date(post.createdAt).toLocaleDateString()}
+                        urlImg={`${this.baseURL}/uploads/${post.image}`}
+                        link={`/post/${post._id}`}
+                    />
+                </div>
             })
         } catch (err) {
             this.setState({ error: true })
@@ -93,25 +95,24 @@ class Main extends Component {
     }
 
     render() {
+        if (window.location != this.state.url) {
+            return <Redirect to={`${window.location}`} />
+        }
         return (
             this.state.error === true ? <h1>Ocorreu um erro, recarregue a página!</h1> :
-                <div className="container-grid">
+                <div className="container-full">
                     <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">
-                        <div className="row">
-                            <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Últimas Notícias</h1>
+                        <div className="row justify-content-center">
+                            <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Notícias sobre {this.state.category.title}</h1>
                         </div>
-                        <div className="row">
+                        <div className="row justify-content-center">
                             {this.state.posts && this.renderPosts()}
                         </div>
-                    </div>
-                    <div className='recent d-flex align-items-center flex-column pt-2'>
-                        <h4>Adicionados Recentemente</h4>
-                        {this.state.posts && this.renderRecents()}
                     </div>
                 </div>
         )
     }
 }
 
-export default Main
+export default PostsCategory

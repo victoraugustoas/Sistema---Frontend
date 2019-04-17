@@ -1,0 +1,18 @@
+.card-category {
+    background-color: black;
+    border: 1px solid #b08215;
+}
+
+.card-category .link-card-category {
+    text-decoration: none;
+    color: white;
+}
+
+.card-category:hover {
+    border: 1px solid #f1b934;
+    box-shadow: 0 4px 8px 0 #b081153f, 0 6px 20px 0 #b081153f;
+}
+
+.card-category-img {
+    width: 26rem;
+}

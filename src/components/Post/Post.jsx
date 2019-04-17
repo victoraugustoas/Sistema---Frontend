@@ -54,13 +54,16 @@ export default class Post extends Component {
         return (
             <React.Fragment>
                 <Navbar categories={this.state.categories} />
-                <div className="container">
-                    <h1>{this.state.post.title}</h1>
-                    <h5><a href='/'>{this.state.category.title}</a></h5>
-                    <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
-                    <hr />
-                    <div className="text">
-                        {this.state.post.content ? parse(this.state.post.content) : ''}
+                <div className="container-full">
+                    <div className="post container">
+                        <div className="img" style={{ backgroundImage: `url('${this.baseURL}/uploads/${this.state.post.image}')` }}></div>
+                        <h1>{this.state.post.title}</h1>
+                        <h5><a href='/'>{this.state.category.title}</a></h5>
+                        <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
+                        <hr />
+                        <div className="text">
+                            {this.state.post.content ? parse(this.state.post.content) : ''}
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

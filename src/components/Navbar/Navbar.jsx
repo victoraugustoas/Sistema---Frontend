@@ -9,13 +9,13 @@ function renderCategories(categories) {
             return <a
                 className="dropdown-item"
                 key={idx.toString()}
-                href={category.path}>
+                href={`/category${category.path}`}>
                 {category.title}
             </a>
         })
     } catch (error) {
-        return <Redirect to='/'></Redirect>
         console.log(error)
+        return <Redirect to='/' />
     }
 }
 
@@ -39,7 +39,7 @@ export default props => (
                 </li>
 
                 <li className="ml-3 mt-3 dropdown">
-                    <a className="btn button dropdown-toggle" href="/"
+                    <a className="btn button dropdown-toggle" href="/category"
                         role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Categorias
