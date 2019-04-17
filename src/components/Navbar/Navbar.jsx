@@ -1,6 +1,6 @@
 import React from 'react'
 import './Navbar.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import logo from './logo_bf2.png'
 
 function renderCategories(categories) {
@@ -14,7 +14,7 @@ function renderCategories(categories) {
             </a>
         })
     } catch (error) {
-        return <h1>Ocorreu um erro, recarregue a página!</h1>
+        return <Redirect to='/'></Redirect>
         console.log(error)
     }
 }
