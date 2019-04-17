@@ -5,12 +5,12 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import FormLogin from '../admin/form/Login/FormLogin'
 import FormSignUp from '../admin/form/SignUp/FormSignUp'
 import Logged from '../admin/Logged'
-import AddCategory from '../admin/AddCategory'
+import AddCategory from '../admin/AddCategory/AddCategory'
+import AddPost from '../admin/AddPost'
 
 // Import Pages
 import Main from '../pages/Main'
 import Post from '../components/Post/Post'
-import AddPost from '../admin/AddPost'
 
 
 export default props => (
