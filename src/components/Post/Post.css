@@ -1,0 +1,24 @@
+.post h1 {
+    color: var(--color-primary);
+}
+
+.post a {
+    text-decoration: none;
+    color: var(--color-secondary);
+}
+
+.post a:hover {
+    text-decoration: none;
+    color: var(--color-secondary-enhanced);
+}
+
+.post .text {
+    color: white;
+}
+
+.post div.img {
+    background-position: center top;
+    background-size: cover;
+    width: 100%;
+    height: 60vh;
+}
