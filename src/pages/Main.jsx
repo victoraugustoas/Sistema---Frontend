@@ -13,6 +13,7 @@ class Main extends Component {
         super(props)
 
         this.state = {
+            error: null,
             redirect: false,
             posts: [],
             categories: []
@@ -32,7 +33,7 @@ class Main extends Component {
                 this.setState({ categories: data })
             })
             .catch(err => {
-                this.setState({ redirect: true })
+                this.setState({ error: true })
                 console.log(err)
             })
 
@@ -42,36 +43,42 @@ class Main extends Component {
                 this.setState({ posts: data })
             })
             .catch(err => {
-                this.setState({ redirect: true })
+                this.setState({ error: true })
                 console.log(err)
             })
     }
 
     renderRecents() {
-        let orderByDate = { ...this.state.posts }
-        // Object.entries retorna um vetor com as posições enumeráveis, ["1"] contém o objeto de fato
-        orderByDate = Object.entries(orderByDate)
 
-        orderByDate.sort((a, b) => a["1"].createdAt > b["1"].createdAt ? a : b)
+        try {
+            let orderByDate = { ...this.state.posts }
+            // Object.entries retorna um vetor com as posições enumeráveis, ["1"] contém o objeto de fato
+            orderByDate = Object.entries(orderByDate)
 
-        orderByDate = orderByDate.slice(0, 5)
+            orderByDate.sort((a, b) => a["1"].createdAt > b["1"].createdAt ? a : b)
 
-        return orderByDate.map((post) => {
-            post = post["1"]
-            return <RecentAdded
-                key={post._id}
-                title={post.title
-                }
-                urlImg={`${this.baseURL}/uploads/${post.image}`}
-                shortDescription={'bla bla bla bla '}
-                link={`/post/${post._id}`
-                } />
-        })
+            orderByDate = orderByDate.slice(0, 5)
+
+            return orderByDate.map((post) => {
+                post = post["1"]
+                return <RecentAdded
+                    key={post._id}
+                    title={post.title
+                    }
+                    urlImg={`${this.baseURL}/uploads/${post.image}`}
+                    shortDescription={'bla bla bla bla '}
+                    link={`/post/${post._id}`
+                    } />
+            })
+        } catch (err) {
+            this.setState({ error: true })
+            console.log(err)
+        }
     }
 
     renderPosts() {
-        return (
-            this.state.posts.map((post) => {
+        try {
+            return this.state.posts.map((post) => {
                 return <CardPost
                     key={post._id}
                     title={post.title}
@@ -80,25 +87,28 @@ class Main extends Component {
                     link={`/post/${post._id}`}
                 />
             })
-        )
+        } catch (err) {
+            this.setState({ error: true })
+            console.log(err)
+        }
     }
 
     render() {
         return (
-            this.redirect == true ? <Redirect to='/' /> :
+            this.state.error === true ? <h1>Ocorreu um erro, recarregue a página!</h1> :
                 <div className="container-grid">
-                    <Navbar categories={this.state.categories} />
+                    <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">
                         <div className="row">
                             <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Últimas Notícias</h1>
                         </div>
                         <div className="row">
-                            {this.renderPosts()}
+                            {this.state.posts && this.renderPosts()}
                         </div>
                     </div>
                     <div className='recent d-flex align-items-center flex-column pt-2'>
                         <h4>Adicionados Recentemente</h4>
-                        {this.renderRecents()}
+                        {this.state.posts && this.renderRecents()}
                     </div>
                 </div>
         )

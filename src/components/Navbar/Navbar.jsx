@@ -1,7 +1,23 @@
 import React from 'react'
 import './Navbar.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import logo from './logo_bf2.png'
+
+function renderCategories(categories) {
+    try {
+        return categories.map((category, idx) => {
+            return <a
+                className="dropdown-item"
+                key={idx.toString()}
+                href={category.path}>
+                {category.title}
+            </a>
+        })
+    } catch (error) {
+        return <Redirect to='/'></Redirect>
+        console.log(error)
+    }
+}
 
 export default props => (
     <nav className="navbar navbar-expand-lg py-3">
@@ -30,9 +46,7 @@ export default props => (
                     </a>
 
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        {props.categories.map((category, idx) => {
-                            return <a className="dropdown-item" key={idx.toString()} href={category.path}>{category.title}</a>
-                        })}
+                        {renderCategories(props.categories)}
                     </div>
                 </li>
 
