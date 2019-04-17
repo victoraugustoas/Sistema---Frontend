@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import './PostsCategory.css'
 
-import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import CardPost from '../CardPost/CardPost'
 
-class PostsCategory extends React.PureComponent {
+class PostsCategory extends Component {
 
     constructor(props) {
         super(props)
@@ -68,7 +67,7 @@ class PostsCategory extends React.PureComponent {
             orderByDate.sort((a, b) => a["1"].createdAt > b["1"].createdAt ? a : b)
             let orderByDateAndCategory = orderByDate.filter((post) => post["1"].category === id ? true : false)
 
-            return orderByDateAndCategory.slice(0, -1)
+            return orderByDateAndCategory
         } catch (err) {
             this.setState({ error: true })
             console.log(err)
@@ -79,7 +78,7 @@ class PostsCategory extends React.PureComponent {
         try {
             return this.getCategoryPosts(this.state.category._id).map((post) => {
                 post = post["1"]
-                return <div key={post._id} className="col-sm-12 col-md-6 col-lg-4">
+                return <div key={post._id} className="col-sm-12 col-md-8 col-lg-6">
                     <CardPost
                         title={post.title}
                         date={new Date(post.createdAt).toLocaleDateString()}
@@ -89,15 +88,12 @@ class PostsCategory extends React.PureComponent {
                 </div>
             })
         } catch (err) {
-            this.setState({ error: true })
+            // this.setState({ error: true })
             console.log(err)
         }
     }
 
     render() {
-        if (window.location != this.state.url) {
-            return <Redirect to={`${window.location}`} />
-        }
         return (
             this.state.error === true ? <h1>Ocorreu um erro, recarregue a página!</h1> :
                 <div className="container-full">
