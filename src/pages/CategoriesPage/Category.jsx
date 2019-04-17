@@ -63,7 +63,7 @@ class Category extends Component {
                     <div className="col-sm-12 col-md-6 col-lg-4">
                         <CardCategory
                             link={`/category${category.path}`}
-                            urlImg={`${this.baseURL}/uploads/${this.getLastCategoryPost(category._id).image}`}
+                            urlImg={`${this.getLastCategoryPost(category._id).image}`}
                             title={category.title}
                             description={category.description}
                         />

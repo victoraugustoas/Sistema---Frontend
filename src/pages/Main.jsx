@@ -64,7 +64,7 @@ class Main extends Component {
                     key={post._id}
                     title={post.title
                     }
-                    urlImg={`${this.baseURL}/uploads/${post.image}`}
+                    urlImg={`${post.image}`}
                     shortDescription={'bla bla bla bla '}
                     link={`/post/${post._id}`
                     } />
@@ -82,7 +82,7 @@ class Main extends Component {
                     key={post._id}
                     title={post.title}
                     date={new Date(post.createdAt).toLocaleDateString()}
-                    urlImg={`${this.baseURL}/uploads/${post.image}`}
+                    urlImg={`${post.image}`}
                     link={`/post/${post._id}`}
                 />
             })
