@@ -1,5 +1,4 @@
 .recent-added {
-    grid-area: recente;
     width: 15rem;
     color: white;
     background-color: black;
@@ -10,3 +9,7 @@
     border: 1px solid #f7383b;
     box-shadow: 0 4px 8px 0 #b30e116b, 0 6px 20px 0 #f7383b4f;
 }
+
+/* .recent-added img {
+    width: 15rem;
+} */
