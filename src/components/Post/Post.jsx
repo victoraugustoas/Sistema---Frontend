@@ -55,7 +55,7 @@ export default class Post extends Component {
             <React.Fragment>
                 <Navbar categories={this.state.categories} />
                 <div className="container-full">
-                    <div className="container">
+                    <div className="post container">
                         <h1>{this.state.post.title}</h1>
                         <h5><a href='/'>{this.state.category.title}</a></h5>
                         <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>

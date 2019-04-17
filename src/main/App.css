@@ -5,3 +5,14 @@ html, body, #root {
 body {
     font-family: 'Ubuntu', sans-serif;
 }
+
+:root {
+    --color-primary: #b08215;
+    --color-secondary: #b30e12;
+    --color-secondary-enhanced: #f7383b;
+}
+
+.container-full {
+    height: 100%;
+    background-color: black;
+}
