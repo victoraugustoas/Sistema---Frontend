@@ -58,7 +58,7 @@ export default class Post extends Component {
                     <div className="post container">
                         <div className="img" style={{ backgroundImage: `url('${this.state.post.image}')` }}></div>
                         <h1>{this.state.post.title}</h1>
-                        <h5><a href='/'>{this.state.category.title}</a></h5>
+                        <h5><a href={`/category${this.state.category.path}`}>{this.state.category.title}</a></h5>
                         <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
                         <hr />
                         <div className="text">
