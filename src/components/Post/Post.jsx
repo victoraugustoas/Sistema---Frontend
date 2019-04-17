@@ -23,9 +23,9 @@ export default class Post extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
-        axios.get(`${this.baseURL}/categories`)
+        await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ categories: data })
@@ -34,13 +34,13 @@ export default class Post extends Component {
 
         let id = window.location.href.split('/post/')[1]
 
-        axios.get(`${this.baseURL}/posts/${id}`)
+        await axios.get(`${this.baseURL}/posts/${id}`)
             .then(resp => resp.data)
             .then(data => {
                 console.log(data)
                 this.setState({ post: data })
 
-                axios.get(`${this.baseURL}/categories/${this.state.post.category}`)
+                await axios.get(`${this.baseURL}/categories/${this.state.post.category}`)
                     .then(resp => resp.data)
                     .then(data => {
                         this.setState({ category: data })

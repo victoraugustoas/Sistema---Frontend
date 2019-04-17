@@ -26,8 +26,8 @@ class PostsCategory extends Component {
         }
     }
 
-    componentDidMount() {
-        axios.get(`${this.baseURL}/categories`)
+    async componentDidMount() {
+        await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ categories: data })
@@ -38,7 +38,7 @@ class PostsCategory extends Component {
                 console.log(err)
             })
 
-        axios.get(`${this.baseURL}/posts`)
+        await axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ posts: data })
