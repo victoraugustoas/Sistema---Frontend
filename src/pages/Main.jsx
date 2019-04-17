@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../components/Navbar/Navbar'
 import CardPost from '../components/CardPost/CardPost';
@@ -12,6 +13,7 @@ class Main extends Component {
         super(props)
 
         this.state = {
+            redirect: false,
             posts: [],
             categories: []
         }
@@ -29,14 +31,20 @@ class Main extends Component {
             .then(data => {
                 this.setState({ categories: data })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ redirect: true })
+                console.log(err)
+            })
 
         axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ posts: data })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ redirect: true })
+                console.log(err)
+            })
     }
 
     renderRecents() {
@@ -77,21 +85,22 @@ class Main extends Component {
 
     render() {
         return (
-            <div className="container-grid">
-                <Navbar categories={this.state.categories} />
-                <div className="container mt-2">
-                    <div className="row">
-                        <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Últimas Notícias</h1>
+            this.redirect == true ? <Redirect to='/' /> :
+                <div className="container-grid">
+                    <Navbar categories={this.state.categories} />
+                    <div className="container mt-2">
+                        <div className="row">
+                            <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Últimas Notícias</h1>
+                        </div>
+                        <div className="row">
+                            {this.renderPosts()}
+                        </div>
                     </div>
-                    <div className="row">
-                        {this.renderPosts()}
+                    <div className='recent d-flex align-items-center flex-column pt-2'>
+                        <h4>Adicionados Recentemente</h4>
+                        {this.renderRecents()}
                     </div>
                 </div>
-                <div className='recent d-flex align-items-center flex-column pt-2'>
-                    <h4>Adicionados Recentemente</h4>
-                    {this.renderRecents()}
-                </div>
-            </div>
         )
     }
 }
