@@ -48,30 +48,36 @@ class Main extends Component {
     }
 
     renderRecents() {
-        let orderByDate = { ...this.state.posts }
-        // Object.entries retorna um vetor com as posições enumeráveis, ["1"] contém o objeto de fato
-        orderByDate = Object.entries(orderByDate)
 
-        orderByDate.sort((a, b) => a["1"].createdAt > b["1"].createdAt ? a : b)
+        try {
+            let orderByDate = { ...this.state.posts }
+            // Object.entries retorna um vetor com as posições enumeráveis, ["1"] contém o objeto de fato
+            orderByDate = Object.entries(orderByDate)
 
-        orderByDate = orderByDate.slice(0, 5)
+            orderByDate.sort((a, b) => a["1"].createdAt > b["1"].createdAt ? a : b)
 
-        return orderByDate.map((post) => {
-            post = post["1"]
-            return <RecentAdded
-                key={post._id}
-                title={post.title
-                }
-                urlImg={`${this.baseURL}/uploads/${post.image}`}
-                shortDescription={'bla bla bla bla '}
-                link={`/post/${post._id}`
-                } />
-        })
+            orderByDate = orderByDate.slice(0, 5)
+
+            return orderByDate.map((post) => {
+                post = post["1"]
+                return <RecentAdded
+                    key={post._id}
+                    title={post.title
+                    }
+                    urlImg={`${this.baseURL}/uploads/${post.image}`}
+                    shortDescription={'bla bla bla bla '}
+                    link={`/post/${post._id}`
+                    } />
+            })
+        } catch (error) {
+            this.setState({ redirect: true })
+            console.log(error)
+        }
     }
 
     renderPosts() {
-        return (
-            this.state.posts.map((post) => {
+        try {
+            return this.state.posts.map((post) => {
                 return <CardPost
                     key={post._id}
                     title={post.title}
@@ -80,12 +86,16 @@ class Main extends Component {
                     link={`/post/${post._id}`}
                 />
             })
-        )
+        } catch (error) {
+            this.setState({ redirect: true })
+            console.log(error)
+        }
+
     }
 
     render() {
         return (
-            this.redirect == true ? <Redirect to='/' /> :
+            this.redirect === true ? <Redirect to='/' /> :
                 <div className="container-grid">
                     <Navbar categories={this.state.categories} />
                     <div className="container mt-2">
