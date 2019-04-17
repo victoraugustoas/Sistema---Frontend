@@ -10,7 +10,6 @@ const initialState = {
 	email: '',
 	password: ''
 }
-const baseUlr = `${process.env.REACT_APP_HOST}`
 
 class App extends Component {
 
@@ -18,6 +17,12 @@ class App extends Component {
 		super(props)
 
 		this.state = initialState
+
+		if (process.env.NODE_ENV === 'development') {
+			this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
+		} else {
+			this.baseURL = `${process.env.REACT_APP_HOST}`
+		}
 
 		this.updateField = this.updateField.bind(this)
 		this.login = this.login.bind(this)
@@ -40,7 +45,7 @@ class App extends Component {
 		let user = { ...this.state }
 		delete user.redirect
 
-		axios.post(`${baseUlr}`, user)
+		axios.post(`${this.baseUlr}`, user)
 			.then(resp => resp.data)
 			.then(verified => {
 				if (verified.verified) {

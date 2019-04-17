@@ -7,13 +7,18 @@ const initialState = {
 	email: '',
 	password: ''
 }
-const baseUlr = `${process.env.REACT_APP_HOST}/users`
 
 class App extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = initialState
+
+		if (process.env.NODE_ENV === 'development') {
+			this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
+		} else {
+			this.baseURL = `${process.env.REACT_APP_HOST}`
+		}
 
 		this.updateField = this.updateField.bind(this)
 		this.save = this.save.bind(this)
@@ -28,7 +33,7 @@ class App extends Component {
 	save(e) {
 		e.preventDefault()
 
-		axios.post(baseUlr, this.state)
+		axios.post(this.baseUlr, this.state)
 			.then(resp => resp.data)
 			.catch(msg => {
 				if (msg.response.status === 400) {
