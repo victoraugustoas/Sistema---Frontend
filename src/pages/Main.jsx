@@ -103,16 +103,16 @@ class Main extends Component {
                     <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">
                         <div className="row align-items-center">
-                            <h1 className="col-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
-                            <h4 className="recent col-2">Adicionados recentemente</h4>
+                            <h1 className="col-md-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
+                            <h4 className="d-none d-sm-block col-md-2 recent">Adicionados recentemente</h4>
                         </div>
                         <div className="row">
-                            <div className="col-10">
+                            <div className="col-md-10">
                                 <div className="row">
                                     {this.state.posts && this.renderPosts()}
                                 </div>
                             </div>
-                            <div className="col-2 d-flex flex-column align-items-center">
+                            <div className="col-md-2">
                                 {this.state.posts && this.renderRecents()}
                             </div>
                         </div>
