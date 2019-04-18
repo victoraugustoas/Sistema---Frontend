@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+.not-found {
+    font-family: 'VT323', monospace;
+    display: flex;
+    height: calc(100vh - var(--height-menu));
+    width: 100%;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    z-index: 10;
+    position: absolute;
+    bottom: calc(100vh - 75%);
+}
+
+.background-construction {
+    background-image: url('https://res.cloudinary.com/dswbfrsv0/image/upload/v1555562371/swbf2.jpg');
+    height: calc(100vh - 60px);
+    width: 100%;
+    background-size: cover;
+    background-position: top center;
+    filter: brightness(32%);
+}
+
+.not-found hr {
+    width: 25%;
+    border: 1px #ff8820 solid;
+}
