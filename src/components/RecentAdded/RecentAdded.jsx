@@ -8,7 +8,12 @@ export default props => {
         <div className="card-body">
             <h5 className="card-title">{props.title}</h5>
             <p className="card-text">{props.shortDescription}</p>
-            <Link to={`${props.link}`} className="btn button">Ver Mais</Link>
+            <Link to={{
+                pathname: `${props.link}`,
+                state: {
+                    id: props.id
+                }
+            }} className="btn button">Ver Mais</Link>
         </div>
     </div>
 }

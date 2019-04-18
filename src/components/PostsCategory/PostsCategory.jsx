@@ -80,6 +80,7 @@ class PostsCategory extends Component {
                 post = post["1"]
                 return <div key={post._id} className="col-sm-12 col-md-8 col-lg-6">
                     <CardPost
+                        id={post._id}
                         title={post.title}
                         date={new Date(post.createdAt).toLocaleDateString()}
                         urlImg={`${post.image}`}

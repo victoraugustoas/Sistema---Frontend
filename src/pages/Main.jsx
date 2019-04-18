@@ -26,7 +26,7 @@ class Main extends Component {
     }
 
     async componentWillMount() {
-        
+
         await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
@@ -62,6 +62,7 @@ class Main extends Component {
             return orderByDate.map((post) => {
                 post = post["1"]
                 return <RecentAdded
+                    id={post._id}
                     key={post._id}
                     title={post.title
                     }
@@ -80,6 +81,7 @@ class Main extends Component {
         try {
             return this.state.posts.map((post) => {
                 return <CardPost
+                    id={post._id}
                     key={post._id}
                     title={post.title}
                     date={new Date(post.createdAt).toLocaleDateString()}

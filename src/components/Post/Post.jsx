@@ -13,7 +13,14 @@ export default class Post extends Component {
         this.state = {
             categories: [],
             post: {},
-            category: {}
+            category: {},
+            id: () => {
+                try {
+                    return props.location.state.id
+                } catch (error) {
+                    return window.location.href.split('/post/')[1]
+                }
+            }
         }
 
         if (process.env.NODE_ENV === 'development') {
@@ -32,20 +39,17 @@ export default class Post extends Component {
             })
             .catch(err => console.log(err))
 
-        let id = window.location.href.split('/post/')[1]
-
-        await axios.get(`${this.baseURL}/posts/${id}`)
+        await axios.get(`${this.baseURL}/posts/${this.state.id()}`)
             .then(resp => resp.data)
             .then(data => {
-                console.log(data)
                 this.setState({ post: data })
+            })
+            .catch(err => console.log(err))
 
-                axios.get(`${this.baseURL}/categories/${this.state.post.category}`)
-                    .then(resp => resp.data)
-                    .then(data => {
-                        this.setState({ category: data })
-                    })
-                    .catch(err => console.log(err))
+        await axios.get(`${this.baseURL}/categories/${this.state.post.category}`)
+            .then(resp => resp.data)
+            .then(data => {
+                this.setState({ category: data })
             })
             .catch(err => console.log(err))
     }
