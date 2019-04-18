@@ -81,6 +81,7 @@ class Main extends Component {
         try {
             return this.state.posts.map((post) => {
                 return <CardPost
+                    author="EA Games"
                     id={post._id}
                     key={post._id}
                     title={post.title}
