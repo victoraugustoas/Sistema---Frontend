@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import CardCategory from '../../components/CardCategory/CardCategory';
 import Navbar from '../../components/Navbar/Navbar';
@@ -34,7 +35,10 @@ class Category extends Component {
             .then(data => {
                 this.setState({ categories: data })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ error: true })
+                console.log(err)
+            })
     }
 
     getLastCategoryPost(id) {
@@ -77,16 +81,17 @@ class Category extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <Navbar categories={this.state.categories} />
-                <div className="container-full">
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            {this.renderCategories()}
+            this.state.error ? <Redirect to='/error' /> :
+                <React.Fragment>
+                    <Navbar categories={this.state.categories} />
+                    <div className="container-full">
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                {this.renderCategories()}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </React.Fragment>
+                </React.Fragment>
         )
     }
 }

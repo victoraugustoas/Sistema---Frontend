@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './PostsCategory.css'
 
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import CardPost from '../CardPost/CardPost'
@@ -89,14 +90,14 @@ class PostsCategory extends Component {
                 </div>
             })
         } catch (err) {
-            // this.setState({ error: true })
+            this.setState({ error: true })
             console.log(err)
         }
     }
 
     render() {
         return (
-            this.state.error === true ? <h1>Ocorreu um erro, recarregue a página!</h1> :
+            this.state.error ? <Redirect to='/error' /> :
                 <div className="container-full">
                     <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">

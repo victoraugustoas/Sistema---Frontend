@@ -15,7 +15,7 @@ function renderCategories(categories) {
         })
     } catch (error) {
         console.log(error)
-        return <Redirect to='/' />
+        return <Redirect to='/error' />
     }
 }
 

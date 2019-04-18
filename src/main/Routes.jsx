@@ -13,7 +13,7 @@ import Main from '../pages/Main'
 import Post from '../components/Post/Post'
 import CategoryPage from '../pages/CategoriesPage/Category'
 import PostsCategory from '../components/PostsCategory/PostsCategory'
-
+import Error from '../pages/Error'
 
 export default props => (
     <Switch>
@@ -21,6 +21,8 @@ export default props => (
         <Route path="/post/*" component={Post} />
         <Route exact path="/category" component={CategoryPage} />
         <Route path="/category/*" component={PostsCategory} />
+
+        <Route path='/error' component={Error} />
 
         <Route path="/admin/login" component={FormLogin} />
         <Route path="/admin/signup" component={FormSignUp} />
