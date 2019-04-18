@@ -25,8 +25,9 @@ class Main extends Component {
         }
     }
 
-    componentWillMount() {
-        axios.get(`${this.baseURL}/categories`)
+    async componentWillMount() {
+
+        await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ categories: data })
@@ -36,7 +37,7 @@ class Main extends Component {
                 console.log(err)
             })
 
-        axios.get(`${this.baseURL}/posts`)
+        await axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ posts: data })
@@ -61,6 +62,7 @@ class Main extends Component {
             return orderByDate.map((post) => {
                 post = post["1"]
                 return <RecentAdded
+                    id={post._id}
                     key={post._id}
                     title={post.title
                     }
@@ -79,6 +81,7 @@ class Main extends Component {
         try {
             return this.state.posts.map((post) => {
                 return <CardPost
+                    id={post._id}
                     key={post._id}
                     title={post.title}
                     date={new Date(post.createdAt).toLocaleDateString()}

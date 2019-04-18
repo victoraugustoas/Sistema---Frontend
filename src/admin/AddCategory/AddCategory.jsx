@@ -29,8 +29,8 @@ export default class AddCategory extends Component {
         this.fail = React.createRef()
     }
 
-    componentWillMount() {
-        axios.get(`${this.baseURL}/categories`)
+    async componentWillMount() {
+        await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
                 data = this.state.fatherCategoryDB.concat(data)
@@ -38,7 +38,7 @@ export default class AddCategory extends Component {
             })
     }
 
-    save(e) {
+    async save(e) {
         e.preventDefault()
         let data = null
 
@@ -55,7 +55,7 @@ export default class AddCategory extends Component {
             data.fatherCategory = ''
         }
 
-        axios.post(`${this.baseURL}/categories`, data)
+        await axios.post(`${this.baseURL}/categories`, data)
             .then(resp => {
 
                 // criada com sucesso

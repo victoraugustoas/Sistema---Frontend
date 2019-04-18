@@ -38,8 +38,8 @@ class AddPost extends Component {
         this.sucess = React.createRef()
     }
 
-    componentWillMount() {
-        axios.get(`${this.baseURL}/categories`)
+    async componentWillMount() {
+        await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
                 data = this.state.fatherCategoryDB.concat(data)
@@ -91,7 +91,7 @@ class AddPost extends Component {
         if (this.state.redirect) return <Redirect to='/' />
     }
 
-    save(e) {
+    async save(e) {
         e.preventDefault()
         const data = { ...this.state }
         delete data.fatherCategoryDB
@@ -102,7 +102,7 @@ class AddPost extends Component {
         form.append('file', this.state.file)
         form.append('category', this.state.fatherCategory)
 
-        axios.post(`${this.baseURL}/posts`, form)
+        await axios.post(`${this.baseURL}/posts`, form)
             .then(resp => {
                 // criada com sucesso
                 if (resp.status === 201) {
