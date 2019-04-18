@@ -3,6 +3,7 @@
     grid-area: post;
     background-color: black;
     border: 1px solid #b08215;
+    transition: 800ms;
 }
 
 .card-post .link-card-post {

@@ -1,6 +1,7 @@
 .card-category {
     background-color: black;
     border: 1px solid #b08215;
+    transition: 800ms;
 }
 
 .card-category .link-card-category {

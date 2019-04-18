@@ -4,13 +4,14 @@
 }
 
 .post a {
+    transition: 800ms;
     text-decoration: none;
     color: var(--color-secondary);
 }
 
 .post a:hover {
     text-decoration: none;
-    color: var(--color-secondary-enhanced);
+    color: white;
 }
 
 .post .text {
