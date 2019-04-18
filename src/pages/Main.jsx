@@ -56,7 +56,9 @@ class Main extends Component {
             // Object.entries retorna um vetor com as posições enumeráveis, ["1"] contém o objeto de fato
             orderByDate = Object.entries(orderByDate)
 
-            orderByDate.sort((a, b) => a["1"].createdAt > b["1"].createdAt ? a : b)
+            orderByDate.sort((a, b) => {
+                return a["1"].createdAt < b["1"].createdAt ? true : false
+            })
 
             orderByDate = orderByDate.slice(0, 5)
 
