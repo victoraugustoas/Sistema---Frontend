@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import parse from 'html-react-parser'
@@ -11,6 +13,7 @@ export default class Post extends Component {
         super(props)
 
         this.state = {
+            error: null,
             categories: [],
             post: {},
             category: {},
@@ -36,7 +39,6 @@ export default class Post extends Component {
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ categories: data })
-                this.setState({ category: this.getCategoryPost() })
             })
             .catch(err => console.log(err))
 
@@ -46,6 +48,7 @@ export default class Post extends Component {
                 this.setState({ post: data })
             })
             .catch(err => console.log(err))
+        this.setCategory()
     }
 
     getCategoryPost() {
@@ -62,6 +65,11 @@ export default class Post extends Component {
             this.setState({ error: true })
             console.log(err)
         }
+    }
+
+    setCategory() {
+        let category = this.getCategoryPost()
+        this.setState({ category })
     }
 
     render() {

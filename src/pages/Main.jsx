@@ -102,8 +102,8 @@ class Main extends Component {
                     <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">
                         <div className="row align-items-center">
-                            <h1 className="col-10 mb-2" style={{ color: "#f1b934" }}>Últimas Notícias</h1>
-                            <h4 className="recent col-2">Adicionados Recentemente</h4>
+                            <h1 className="col-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
+                            <h4 className="recent col-2">Adicionados recentemente</h4>
                         </div>
                         <div className="row">
                             <div className="col-10">
