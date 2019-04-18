@@ -78,7 +78,7 @@ class PostsCategory extends Component {
         try {
             return this.getCategoryPosts(this.state.category._id).map((post) => {
                 post = post["1"]
-                return <div key={post._id} className="col-sm-12 col-md-8 col-lg-6">
+                return <div key={post._id} className="col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center">
                     <CardPost
                         id={post._id}
                         title={post.title}
