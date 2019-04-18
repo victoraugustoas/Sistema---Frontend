@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import parse from 'html-react-parser'
@@ -11,6 +13,7 @@ export default class Post extends Component {
         super(props)
 
         this.state = {
+            error: null,
             categories: [],
             post: {},
             category: {},
@@ -36,7 +39,6 @@ export default class Post extends Component {
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ categories: data })
-                this.setState({ category: this.getCategoryPost() })
             })
             .catch(err => console.log(err))
 
@@ -46,6 +48,7 @@ export default class Post extends Component {
                 this.setState({ post: data })
             })
             .catch(err => console.log(err))
+        this.setCategory()
     }
 
     getCategoryPost() {
@@ -64,6 +67,11 @@ export default class Post extends Component {
         }
     }
 
+    setCategory() {
+        let category = this.getCategoryPost()
+        this.setState({ category })
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -71,13 +79,18 @@ export default class Post extends Component {
                 <div className="container-full">
                     <div className="post container">
                         <div className="img" style={{ backgroundImage: `url('${this.state.post.image}')` }}></div>
+
                         <h1>{this.state.post.title}</h1>
                         {this.state.category && <h5><a href={`/category${this.state.category.path}`}>{this.state.category.title}</a></h5>}
+
+                        <h6 className='text-muted'>Escrito por: EA Games</h6>
                         <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
+
                         <hr />
                         <div className="text">
                             {this.state.post.content ? parse(this.state.post.content) : ''}
                         </div>
+
                     </div>
                 </div>
             </React.Fragment>

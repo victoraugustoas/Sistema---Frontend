@@ -14,7 +14,7 @@ export default props => {
                 <img src={props.urlImg} className="card-post-img img-fluid card-img-top" alt={'img'} />
                 <div className="card-body">
                     <h5 className="card-title">{props.title}</h5>
-                    <p className="card-text">{props.shortDescription} kkk</p>
+                    <p className="card-text">{props.shortDescription}</p>
 
                     <p className="card-text"><small className="text-muted">Criado em: {props.date}</small></p>
                     <p className="card-text"><small className="text-muted">Escrito por: {'EA Games'}</small></p>

@@ -26,6 +26,7 @@
 .dropdown-menu, .dropdown-item {
     color: #b08215;
     background-color: black;
+    transition: 500ms;
 }
 
 .dropdown-item:hover {

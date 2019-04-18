@@ -3,6 +3,7 @@
     color: white;
     background-color: black;
     border: 1px solid #b30e12;
+    transition: 800ms;
 }
 
 .recent-added:hover {
