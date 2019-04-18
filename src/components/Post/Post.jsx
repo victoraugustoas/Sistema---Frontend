@@ -40,14 +40,20 @@ export default class Post extends Component {
             .then(data => {
                 this.setState({ categories: data })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ error: true })
+                console.log(err)
+            })
 
         await axios.get(`${this.baseURL}/posts/${this.state.id()}`)
             .then(resp => resp.data)
             .then(data => {
                 this.setState({ post: data })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ error: true })
+                console.log(err)
+            })
         this.setCategory()
     }
 
@@ -74,26 +80,27 @@ export default class Post extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <Navbar categories={this.state.categories} />
-                <div className="container-full">
-                    <div className="post container">
-                        <div className="img" style={{ backgroundImage: `url('${this.state.post.image}')` }}></div>
+            this.state.error ? <Redirect to='/error' /> :
+                <React.Fragment>
+                    <Navbar categories={this.state.categories} />
+                    <div className="container-full">
+                        <div className="post container">
+                            <div className="img" style={{ backgroundImage: `url('${this.state.post.image}')` }}></div>
 
-                        <h1>{this.state.post.title}</h1>
-                        {this.state.category && <h5><a href={`/category${this.state.category.path}`}>{this.state.category.title}</a></h5>}
+                            <h1>{this.state.post.title}</h1>
+                            {this.state.category && <h5><a href={`/category${this.state.category.path}`}>{this.state.category.title}</a></h5>}
 
-                        <h6 className='text-muted'>Escrito por: EA Games</h6>
-                        <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
+                            <h6 className='text-muted'>Escrito por: EA Games</h6>
+                            <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
 
-                        <hr />
-                        <div className="text">
-                            {this.state.post.content ? parse(this.state.post.content) : ''}
+                            <hr />
+                            <div className="text">
+                                {this.state.post.content ? parse(this.state.post.content) : ''}
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
-            </React.Fragment>
+                </React.Fragment>
         )
     }
 }

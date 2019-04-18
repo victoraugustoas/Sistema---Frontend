@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import './Main.css'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../components/Navbar/Navbar'
 import CardPost from '../components/CardPost/CardPost';
-import './Main.css'
 import RecentAdded from '../components/RecentAdded/RecentAdded';
 
 
@@ -98,7 +99,7 @@ class Main extends Component {
 
     render() {
         return (
-            this.state.error === true ? <h1>Ocorreu um erro, recarregue a página!</h1> :
+            this.state.error === true ? <Redirect to='/error' /> :
                 <div className="container-full">
                     <Navbar categories={this.state.categories && this.state.categories} />
                     <div className="container mt-2">

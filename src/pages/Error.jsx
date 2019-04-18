@@ -51,9 +51,9 @@ export default class Error extends React.Component {
                 <Navbar categories={this.state.categories} />
                 <div className="background-construction"></div>
                 <div className="not-found">
-                    <h1>Página não encontrada</h1>
+                    <h1>Algum erro ocorreu :(</h1>
                     <hr />
-                    <h2>404</h2>
+                    <h2>500</h2>
                     <h5>Ainda estamos trabalhando nessa página =D</h5>
                 </div>
             </div>
