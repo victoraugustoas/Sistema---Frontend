@@ -1,0 +1,20 @@
+footer hr {
+    border: 1px solid var(--color-primary);
+}
+
+footer {
+    background-color: #252525;
+}
+
+footer h5 {
+    color: white;
+}
+
+.input-form {
+    background-color: #252525;
+}
+
+.input-form:focus {
+    outline: 1px solid var(--color-primary-enhanced);
+    background-color: #252525;
+}

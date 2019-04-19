@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import CardPost from '../CardPost/CardPost'
+import Footer from '../Footer/Footer';
 
 class PostsCategory extends Component {
 
@@ -108,6 +109,7 @@ class PostsCategory extends Component {
                             {this.state.posts && this.renderPosts()}
                         </div>
                     </div>
+                    <Footer />
                 </div>
         )
     }

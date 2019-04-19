@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar'
 import parse from 'html-react-parser'
 
 import './Post.css'
+import Footer from '../Footer/Footer';
 
 export default class Post extends Component {
 
@@ -109,6 +110,7 @@ export default class Post extends Component {
                             </div>
 
                         </div>
+                        <Footer />
                     </div>
                 </React.Fragment>
         )

@@ -33,19 +33,3 @@
     color: white;
     background-color: #f1b934;
 }
-
-/* cor botão menu */
-
-.button {
-    color: #b08215;
-    border: 1px solid #b08215;
-}
-
-.button:hover {
-    color: #f1b934;
-    border: 1px solid #f1b934;
-}
-
-.button:focus {
-    outline: 0;
-}
