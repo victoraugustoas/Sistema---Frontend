@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import CardCategory from '../../components/CardCategory/CardCategory';
 import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 
 class Category extends Component {
     constructor(props) {
@@ -90,6 +91,7 @@ class Category extends Component {
                                 {this.renderCategories()}
                             </div>
                         </div>
+                        <Footer />
                     </div>
                 </React.Fragment>
         )

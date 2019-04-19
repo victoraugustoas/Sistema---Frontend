@@ -5,7 +5,7 @@ import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
 import CardPost from '../../components/CardPost/CardPost';
 import RecentAdded from '../../components/RecentAdded/RecentAdded';
-
+import Footer from '../../components/Footer/Footer';
 
 class Main extends Component {
 
@@ -120,6 +120,7 @@ class Main extends Component {
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
         )
     }
