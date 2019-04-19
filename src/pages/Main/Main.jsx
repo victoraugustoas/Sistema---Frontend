@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import './Main.css'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import Navbar from '../components/Navbar/Navbar'
-import CardPost from '../components/CardPost/CardPost';
-import RecentAdded from '../components/RecentAdded/RecentAdded';
+import Navbar from '../../components/Navbar/Navbar'
+import CardPost from '../../components/CardPost/CardPost';
+import RecentAdded from '../../components/RecentAdded/RecentAdded';
 
 
 class Main extends Component {

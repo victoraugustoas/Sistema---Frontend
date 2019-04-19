@@ -9,11 +9,11 @@ import AddCategory from '../admin/AddCategory/AddCategory'
 import AddPost from '../admin/AddPost'
 
 // Import Pages
-import Main from '../pages/Main'
+import Main from '../pages/Main/Main'
 import Post from '../components/Post/Post'
 import CategoryPage from '../pages/CategoriesPage/Category'
 import PostsCategory from '../components/PostsCategory/PostsCategory'
-import Error from '../pages/Error'
+import Error from '../pages/Error/Error'
 
 export default props => (
     <Switch>

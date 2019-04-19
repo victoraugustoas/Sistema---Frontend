@@ -2,7 +2,7 @@ import React from 'react'
 import './Error.css'
 
 import axios from 'axios'
-import Navbar from '../components/Navbar/Navbar'
+import Navbar from '../../components/Navbar/Navbar'
 export default class Error extends React.Component {
 
     constructor(props) {

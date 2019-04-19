@@ -1,7 +1,7 @@
 import React from 'react'
 import './Navbar.css'
 import { Link, Redirect } from 'react-router-dom'
-import logo from './logo_bf2.png'
+import logo from '../../assets/img/logo_bf2.png'
 
 function renderCategories(categories) {
     try {
