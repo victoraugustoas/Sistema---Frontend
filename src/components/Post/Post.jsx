@@ -26,6 +26,7 @@ export default class Post extends Component {
             }
         }
 
+
         if (process.env.NODE_ENV === 'development') {
             this.baseURL = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
         } else {
@@ -94,8 +95,17 @@ export default class Post extends Component {
                             <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
 
                             <hr />
-                            <div className="text">
-                                {this.state.post.content ? parse(this.state.post.content) : ''}
+                            <div className="text container">
+                                {this.state.post.content ? parse(this.state.post.content, {
+                                    replace: (domNode) => {
+                                        console.log(domNode)
+                                        if (!domNode.attribs) return
+
+                                        if (domNode.name === 'img') {
+                                            return domNode.attribs.class = 'img-fluid'
+                                        }
+                                    }
+                                }) : ''}
                             </div>
 
                         </div>
