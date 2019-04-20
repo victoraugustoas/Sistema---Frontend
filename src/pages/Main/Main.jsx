@@ -104,18 +104,27 @@ class Main extends Component {
             this.state.error === true ? <Redirect to='/error' /> :
                 <div className="container-full">
                     <Navbar categories={this.state.categories && this.state.categories} />
+                    <video autoPlay muted loop
+                        className='d-none d-sm-block'
+                        poster='https://res.cloudinary.com/dswbfrsv0/image/upload/v1555562371/swbf2.jpg'
+                        id="myVideo">
+                        <source
+                            src="https://res.cloudinary.com/dswbfrsv0/video/upload/c_fill,h_760,w_1920,so_2.0,eo_54.0/v1555768941/Star_Wars_Battlefront_II_Launch_Trailer.mp4"
+                            type="video/mp4" />
+                    </video>
+
                     <div className="container mt-2">
                         <div className="row align-items-center">
                             <h1 className="col-md-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
                             <h4 className="d-none d-sm-block col-md-2 recent">Adicionados recentemente</h4>
                         </div>
                         <div className="row">
-                            <div className="col-md-10">
+                            <div className="col-md-8 col-xl-10">
                                 <div className="row">
                                     {this.state.posts && this.renderPosts()}
                                 </div>
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-4 col-xl-2">
                                 {this.state.posts && this.renderRecents()}
                             </div>
                         </div>

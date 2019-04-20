@@ -1,13 +1,11 @@
-.container-grid {
-    background-color: black;
-    width: 100%;
-    /* display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: space-around;
-    grid-template-areas: 'menu menu menu' 'post post recente'; */
-}
-
 .recent {
     text-align: center;
     color: white;
+}
+
+#myVideo {
+    height: calc(100vh - 90px);
+    width: 100%;
+    /* min-width: 100%; */
+    /* min-height: 100%; */
 }
