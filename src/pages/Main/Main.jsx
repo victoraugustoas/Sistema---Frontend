@@ -3,10 +3,11 @@ import './Main.css'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
-import CardPost from '../../components/CardPost/CardPost';
-import RecentAdded from '../../components/RecentAdded/RecentAdded';
-import Footer from '../../components/Footer/Footer';
+import CardPost from '../../components/CardPost/CardPost'
+import RecentAdded from '../../components/RecentAdded/RecentAdded'
+import Footer from '../../components/Footer/Footer'
 import Loading from '../../components/Loading/Loading'
+import SectionContent from '../../components/SectionContent/SectionContent'
 
 class Main extends Component {
 
@@ -18,7 +19,9 @@ class Main extends Component {
             error: null,
             redirect: false,
             posts: [],
-            categories: []
+            categories: [],
+            numberOfPosts: 6,
+            numberOfRecents: 3
         }
 
         if (process.env.NODE_ENV === 'development') {
@@ -64,7 +67,7 @@ class Main extends Component {
                 return a["1"].createdAt < b["1"].createdAt ? true : false
             })
 
-            orderByDate = orderByDate.slice(0, 5)
+            orderByDate = orderByDate.slice(0, this.state.numberOfRecents)
 
             return orderByDate.map((post) => {
                 post = post["1"]
@@ -84,7 +87,8 @@ class Main extends Component {
 
     renderPosts() {
         try {
-            let x = this.state.posts.map((post) => {
+            let x = this.state.posts.slice(0, this.state.numberOfPosts)
+            x = x.map((post) => {
                 return <CardPost
                     author="Victor Augusto"
                     id={post._id}
@@ -120,7 +124,12 @@ class Main extends Component {
                                 </video>
                             }
                         </div>
-
+                        <SectionContent
+                            url='/'
+                            headTitle='Heróis nascem no Battlefront'
+                            title=' Esse é o <em>Star Wars</em> Battlefront II'
+                            description=' Descubra tudo que sempre quis saber sobre os mapas, modos e todos os detalhes da campanha para um jogador e do multiplayer de Star Wars Battlefront II.'
+                            urlImg='https://images2.alphacoders.com/823/823125.png' />
                         <div className="container mt-2">
                             <div className="row align-items-center">
                                 <h1 className="col-md-8 col-xl-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
@@ -139,6 +148,12 @@ class Main extends Component {
                                 </div>
                             </div>
                         </div>
+                        <SectionContent
+                            url='/'
+                            headTitle='Batalhas Espaciais'
+                            title='Ataque com caças estelares'
+                            description='Entre na cabine do Caça Estelar de Yoda, da Cimitarra de Darth Maul e em uma frota inteira de outras naves, nas batalhas espaciais multiplayer baseadas em objetivos. Mude o curso da batalha com controles aprimorados e caças estelares personalizáveis, em enfrentamentos gigantescos por todas as três eras cinematográficas de Star Wars .'
+                            urlImg='https://images3.alphacoders.com/823/thumb-1920-823131.jpg' />
                         <Footer />
                     </div>
         )

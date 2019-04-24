@@ -17,7 +17,7 @@ export default props => {
                     <p className="card-text">{props.shortDescription}</p>
 
                     <p className="card-text"><small className="text-muted">Criado em: {props.date}</small></p>
-                    <p className="card-text"><small className="text-muted">Escrito por: {'EA Games'}</small></p>
+                    <p className="card-text"><small className="text-muted">Escrito por: {`${props.author}`}</small></p>
                 </div>
             </Link>
         </div>

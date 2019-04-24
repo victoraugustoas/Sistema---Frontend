@@ -1,0 +1,19 @@
+.sobre-o-jogo {
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    width: 100%;
+}
+
+.text-section {
+    color: white;
+}
+
+.text-section h1 {
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.text-section h4 {
+    text-transform: uppercase;
+}

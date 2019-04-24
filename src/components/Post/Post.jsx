@@ -97,7 +97,7 @@ export default class Post extends Component {
                                 <h1>{this.state.post.title}</h1>
                                 {this.state.category && <h5><a href={`/category${this.state.category.path}`}>{this.state.category.title}</a></h5>}
 
-                                <h6 className='text-muted'>Escrito por: EA Games</h6>
+                                <h6 className='text-muted'>Escrito por: {this.props.author || 'Victor Augusto'}</h6>
                                 <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
 
                                 <hr />
