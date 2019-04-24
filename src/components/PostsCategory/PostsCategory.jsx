@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import CardPost from '../CardPost/CardPost'
-import Footer from '../Footer/Footer';
+import Footer from '../Footer/Footer'
+import Loading from '../Loading/Loading'
 
 class PostsCategory extends Component {
 
@@ -13,6 +14,7 @@ class PostsCategory extends Component {
         super(props)
 
         this.state = {
+            loading: true,
             url: window.location,
             error: null,
             redirect: false,
@@ -32,6 +34,7 @@ class PostsCategory extends Component {
         await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ categories: data })
                 this.setCategory()
             })
@@ -43,6 +46,7 @@ class PostsCategory extends Component {
         await axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ posts: data })
             })
             .catch(err => {
@@ -99,18 +103,19 @@ class PostsCategory extends Component {
     render() {
         return (
             this.state.error ? <Redirect to='/error' /> :
-                <div className="container-full">
-                    <Navbar categories={this.state.categories && this.state.categories} />
-                    <div className="container mt-2">
-                        <div className="row justify-content-center">
-                            {this.state.category && <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Notícias sobre {this.state.category.title}</h1>}
+                this.state.loading ? <Loading /> :
+                    <div className="container-full">
+                        <Navbar categories={this.state.categories && this.state.categories} />
+                        <div className="container mt-2">
+                            <div className="row justify-content-center">
+                                {this.state.category && <h1 className="ml-3 mb-2" style={{ color: "#f1b934" }}>Notícias sobre {this.state.category.title}</h1>}
+                            </div>
+                            <div className="row justify-content-center">
+                                {this.state.posts && this.renderPosts()}
+                            </div>
                         </div>
-                        <div className="row justify-content-center">
-                            {this.state.posts && this.renderPosts()}
-                        </div>
+                        <Footer />
                     </div>
-                    <Footer />
-                </div>
         )
     }
 }

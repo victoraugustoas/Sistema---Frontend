@@ -4,11 +4,13 @@ import axios from 'axios'
 import CardCategory from '../../components/CardCategory/CardCategory';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
+import Loading from '../../components/Loading/Loading'
 
 class Category extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            loading: true,
             error: null,
             categories: []
         }
@@ -24,6 +26,7 @@ class Category extends Component {
         await axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ posts: data })
             })
             .catch(err => {
@@ -34,6 +37,7 @@ class Category extends Component {
         await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ categories: data })
             })
             .catch(err => {
@@ -83,17 +87,18 @@ class Category extends Component {
     render() {
         return (
             this.state.error ? <Redirect to='/error' /> :
-                <React.Fragment>
-                    <Navbar categories={this.state.categories} />
-                    <div className="container-full">
-                        <div className="container">
-                            <div className="row justify-content-center">
-                                {this.renderCategories()}
+                this.state.loading ? <Loading /> :
+                    <React.Fragment>
+                        <Navbar categories={this.state.categories} />
+                        <div className="container-full">
+                            <div className="container">
+                                <div className="row justify-content-center">
+                                    {this.renderCategories()}
+                                </div>
                             </div>
+                            <Footer />
                         </div>
-                        <Footer />
-                    </div>
-                </React.Fragment>
+                    </React.Fragment>
         )
     }
 }

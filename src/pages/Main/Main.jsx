@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar/Navbar'
 import CardPost from '../../components/CardPost/CardPost';
 import RecentAdded from '../../components/RecentAdded/RecentAdded';
 import Footer from '../../components/Footer/Footer';
+import Loading from '../../components/Loading/Loading'
 
 class Main extends Component {
 
@@ -13,6 +14,7 @@ class Main extends Component {
         super(props)
 
         this.state = {
+            loading: true,
             error: null,
             redirect: false,
             posts: [],
@@ -31,6 +33,7 @@ class Main extends Component {
         await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ categories: data })
             })
             .catch(err => {
@@ -41,6 +44,7 @@ class Main extends Component {
         await axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ posts: data })
             })
             .catch(err => {
@@ -67,10 +71,8 @@ class Main extends Component {
                 return <RecentAdded
                     id={post._id}
                     key={post._id}
-                    title={post.title
-                    }
+                    title={post.title}
                     urlImg={`${post.image}`}
-                    shortDescription={'bla bla bla bla '}
                     link={`/post/${post._id}`
                     } />
             })
@@ -82,9 +84,9 @@ class Main extends Component {
 
     renderPosts() {
         try {
-            return this.state.posts.map((post) => {
+            let x = this.state.posts.map((post) => {
                 return <CardPost
-                    author="EA Games"
+                    author="Victor Augusto"
                     id={post._id}
                     key={post._id}
                     title={post.title}
@@ -93,6 +95,7 @@ class Main extends Component {
                     link={`/post/${post._id}`}
                 />
             })
+            return x
         } catch (err) {
             this.setState({ error: true })
             console.log(err)
@@ -102,26 +105,42 @@ class Main extends Component {
     render() {
         return (
             this.state.error === true ? <Redirect to='/error' /> :
-                <div className="container-full">
-                    <Navbar categories={this.state.categories && this.state.categories} />
-                    <div className="container mt-2">
-                        <div className="row align-items-center">
-                            <h1 className="col-md-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
-                            <h4 className="d-none d-sm-block col-md-2 recent">Adicionados recentemente</h4>
+                this.state.loading ? <Loading /> :
+                    <div className="container-full">
+                        <Navbar categories={this.state.categories && this.state.categories} />
+                        <div className="video">
+                            {window.innerWidth < 768 ? '' :
+                                <video autoPlay muted loop
+                                    className='d-none d-sm-block'
+                                    poster='https://res.cloudinary.com/dswbfrsv0/image/upload/v1555562371/swbf2.jpg'
+                                    id="myVideo">
+                                    <source
+                                        src="https://res.cloudinary.com/dswbfrsv0/video/upload/c_fill,h_760,w_1920,so_2.0,eo_54.0/v1555768941/Star_Wars_Battlefront_II_Launch_Trailer.mp4"
+                                        type="video/mp4" />
+                                </video>
+                            }
                         </div>
-                        <div className="row">
-                            <div className="col-md-10">
-                                <div className="row">
-                                    {this.state.posts && this.renderPosts()}
+
+                        <div className="container mt-2">
+                            <div className="row align-items-center">
+                                <h1 className="col-md-8 col-xl-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
+                                <h4 className="d-none d-sm-block col-md-4 col-xl-2 recent">Adicionados recentemente</h4>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-8 col-xl-10">
+                                    <div className="row">
+                                        {this.state.posts && this.renderPosts()}
+                                    </div>
+                                </div>
+                                <div className="col-md-4 col-xl-2">
+                                    <div className="row">
+                                        {this.state.posts && this.renderRecents()}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-md-2">
-                                {this.state.posts && this.renderRecents()}
-                            </div>
                         </div>
+                        <Footer />
                     </div>
-                    <Footer />
-                </div>
         )
     }
 }

@@ -54,27 +54,27 @@ export default props => {
 
             <div className="row mt-3 justify-content-center">
                 <div className="col text-center">
-                    <a href={imgLogo.eaStarWars.to} target='_blank'>
+                    <a href={imgLogo.eaStarWars.to} target='_blank' rel="noopener noreferrer">
                         <img src={imgLogo.eaStarWars.logo} className="img-fluid" alt="" />
                     </a>
                 </div>
                 <div className="col text-center">
-                    <a href={imgLogo.dice.to} target='_blank'>
+                    <a href={imgLogo.dice.to} target='_blank' rel="noopener noreferrer">
                         <img src={imgLogo.dice.logo} className="img-fluid" alt="" />
                     </a>
                 </div>
                 <div className="col text-center">
-                    <a href={imgLogo.motive.to} target='_blank'>
+                    <a href={imgLogo.motive.to} target='_blank' rel="noopener noreferrer">
                         <img src={imgLogo.motive.logo} className="img-fluid" alt="" />
                     </a>
                 </div>
                 <div className="col text-center">
-                    <a href={imgLogo.criterion.to} target='_blank'>
+                    <a href={imgLogo.criterion.to} target='_blank' rel="noopener noreferrer">
                         <img src={imgLogo.criterion.logo} className="img-fluid" alt="" />
                     </a>
                 </div>
                 <div className="col text-center">
-                    <a href={imgLogo.lucasFilm.to} target='_blank'>
+                    <a href={imgLogo.lucasFilm.to} target='_blank' rel="noopener noreferrer">
                         <img src={imgLogo.lucasFilm.logo} className="img-fluid" alt="" />
                     </a>
                 </div>
