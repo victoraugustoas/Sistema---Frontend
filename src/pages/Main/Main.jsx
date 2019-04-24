@@ -67,10 +67,8 @@ class Main extends Component {
                 return <RecentAdded
                     id={post._id}
                     key={post._id}
-                    title={post.title
-                    }
+                    title={post.title}
                     urlImg={`${post.image}`}
-                    shortDescription={'bla bla bla bla '}
                     link={`/post/${post._id}`
                     } />
             })
@@ -84,7 +82,7 @@ class Main extends Component {
         try {
             return this.state.posts.map((post) => {
                 return <CardPost
-                    author="EA Games"
+                    author="Victor Augusto"
                     id={post._id}
                     key={post._id}
                     title={post.title}
