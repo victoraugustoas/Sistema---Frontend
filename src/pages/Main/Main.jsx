@@ -115,8 +115,8 @@ class Main extends Component {
 
                     <div className="container mt-2">
                         <div className="row align-items-center">
-                            <h1 className="col-md-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
-                            <h4 className="d-none d-sm-block col-md-2 recent">Adicionados recentemente</h4>
+                            <h1 className="col-md-8 col-xl-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
+                            <h4 className="d-none d-sm-block col-md-4 col-xl-2 recent">Adicionados recentemente</h4>
                         </div>
                         <div className="row">
                             <div className="col-md-8 col-xl-10">
@@ -125,7 +125,9 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="col-md-4 col-xl-2">
-                                {this.state.posts && this.renderRecents()}
+                                <div className="row">
+                                    {this.state.posts && this.renderRecents()}
+                                </div>
                             </div>
                         </div>
                     </div>
