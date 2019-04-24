@@ -6,7 +6,8 @@ import Navbar from '../Navbar/Navbar'
 import parse from 'html-react-parser'
 
 import './Post.css'
-import Footer from '../Footer/Footer';
+import Footer from '../Footer/Footer'
+import Loading from '../Loading/Loading'
 
 export default class Post extends Component {
 
@@ -14,6 +15,7 @@ export default class Post extends Component {
         super(props)
 
         this.state = {
+            loading: true,
             error: null,
             categories: [],
             post: {},
@@ -40,6 +42,7 @@ export default class Post extends Component {
         await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ categories: data })
             })
             .catch(err => {
@@ -50,6 +53,7 @@ export default class Post extends Component {
         await axios.get(`${this.baseURL}/posts/${this.state.id()}`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ post: data })
             })
             .catch(err => {
@@ -83,36 +87,37 @@ export default class Post extends Component {
     render() {
         return (
             this.state.error ? <Redirect to='/error' /> :
-                <React.Fragment>
-                    <Navbar categories={this.state.categories} />
-                    <div className="container-full">
-                        <div className="post container">
-                            <div className="img" style={{ backgroundImage: `url('${this.state.post.image}')` }}></div>
+                this.state.loading ? <Loading /> :
+                    <React.Fragment>
+                        <Navbar categories={this.state.categories} />
+                        <div className="container-full">
+                            <div className="post container">
+                                <div className="img" style={{ backgroundImage: `url('${this.state.post.image}')` }}></div>
 
-                            <h1>{this.state.post.title}</h1>
-                            {this.state.category && <h5><a href={`/category${this.state.category.path}`}>{this.state.category.title}</a></h5>}
+                                <h1>{this.state.post.title}</h1>
+                                {this.state.category && <h5><a href={`/category${this.state.category.path}`}>{this.state.category.title}</a></h5>}
 
-                            <h6 className='text-muted'>Escrito por: EA Games</h6>
-                            <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
+                                <h6 className='text-muted'>Escrito por: EA Games</h6>
+                                <small className="text-muted">Criado em: {new Date(this.state.post.createdAt).toLocaleDateString()}</small>
 
-                            <hr />
-                            <div className="text container">
-                                {this.state.post.content ? parse(this.state.post.content, {
-                                    replace: (domNode) => {
-                                        console.log(domNode)
-                                        if (!domNode.attribs) return
+                                <hr />
+                                <div className="text container">
+                                    {this.state.post.content ? parse(this.state.post.content, {
+                                        replace: (domNode) => {
+                                            console.log(domNode)
+                                            if (!domNode.attribs) return
 
-                                        if (domNode.name === 'img') {
-                                            return domNode.attribs.class = 'img-fluid'
+                                            if (domNode.name === 'img') {
+                                                return domNode.attribs.class = 'img-fluid'
+                                            }
                                         }
-                                    }
-                                }) : ''}
-                            </div>
+                                    }) : ''}
+                                </div>
 
+                            </div>
+                            <Footer />
                         </div>
-                        <Footer />
-                    </div>
-                </React.Fragment>
+                    </React.Fragment>
         )
     }
 }

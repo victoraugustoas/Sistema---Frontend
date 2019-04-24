@@ -3,12 +3,14 @@ import './Error.css'
 
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
-export default class Error extends React.Component {
+import Loading from '../../components/Loading/Loading'
 
+export default class Error extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            loading: true,
             error: null,
             redirect: false,
             posts: [],
@@ -27,6 +29,7 @@ export default class Error extends React.Component {
         await axios.get(`${this.baseURL}/categories`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ categories: data })
             })
             .catch(err => {
@@ -37,6 +40,7 @@ export default class Error extends React.Component {
         await axios.get(`${this.baseURL}/posts`)
             .then(resp => resp.data)
             .then(data => {
+                this.setState({ loading: false })
                 this.setState({ posts: data })
             })
             .catch(err => {
