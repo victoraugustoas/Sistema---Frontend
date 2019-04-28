@@ -86,6 +86,7 @@ class PostsCategory extends Component {
                 post = post["1"]
                 return <div key={post._id} className="col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center">
                     <CardPost
+                        author={post.author || 'Victor Augusto'}
                         id={post._id}
                         title={post.title}
                         date={new Date(post.createdAt).toLocaleDateString()}

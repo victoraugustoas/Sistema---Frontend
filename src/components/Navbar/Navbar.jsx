@@ -51,7 +51,11 @@ export default props => (
                 </li>
 
                 <li className="ml-3 mt-3 nav-item">
-                    <a href="/posts" className="btn button">Posts</a>
+                    <a href="/multiplayer" className="btn button">Multiplayer</a>
+                </li>
+
+                <li className="ml-3 mt-3 nav-item">
+                    <a href="/posts" className="btn button">Sobre o Jogo</a>
                 </li>
 
             </ul>

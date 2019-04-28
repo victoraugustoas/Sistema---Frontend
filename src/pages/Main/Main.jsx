@@ -141,7 +141,7 @@ class Main extends Component {
                                         {this.state.posts && this.renderPosts()}
                                     </div>
                                 </div>
-                                <div className="col-md-4 col-xl-2">
+                                <div className="col-md-4 col-xl-2 mb-3">
                                     <div className="row">
                                         {this.state.posts && this.renderRecents()}
                                     </div>
