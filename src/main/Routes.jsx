@@ -24,6 +24,7 @@ export default props => (
 
         <Route path='/error' component={Error} />
 
+        <Route exact path="/admin" component={FormLogin} />
         <Route path="/admin/login" component={FormLogin} />
         <Route path="/admin/signup" component={FormSignUp} />
         <Route path="/admin/logged" component={Logged} />

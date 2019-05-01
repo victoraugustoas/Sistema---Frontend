@@ -91,6 +91,9 @@ class App extends Component {
 		return (
 			<form className="needs-validation" action='/users'>
 				<div className="form-group">
+					<h2>Cadastro</h2>
+				</div>
+				<div className="form-group">
 					<label htmlFor="exampleInputEmail1">Email address</label>
 					<input
 						ref={this.textEmailInput}
@@ -127,9 +130,11 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="Form">
-				{this.renderForm()}
-			</div>
+			<React.Fragment>
+				<div className="Form">
+					{this.renderForm()}
+				</div>
+			</React.Fragment>
 		);
 	}
 

@@ -108,7 +108,7 @@ class App extends Component {
 				</div>
 				<div className="form-group">
 					<input onClick={this.login} type="submit" className="btn btn-primary" value="Login" />
-					<Link to="/signup" className="ml-3 btn btn-secondary">Cadastrar</Link>
+					<Link to="/admin/signup" className="ml-3 btn btn-secondary">Cadastrar</Link>
 				</div>
 			</form>
 		)
