@@ -1,6 +1,7 @@
 import React from 'react'
 import './Error.css'
 
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
 import Loading from '../../components/Loading/Loading'
@@ -51,16 +52,18 @@ export default class Error extends React.Component {
 
     render() {
         return (
-            <div className="container-full">
-                <Navbar categories={this.state.categories} />
-                <div className="background-construction"></div>
-                <div className="not-found">
-                    <h1>Algum erro ocorreu :(</h1>
-                    <hr />
-                    <h2>500</h2>
-                    <h5>Ainda estamos trabalhando nessa página =D</h5>
-                </div>
-            </div>
+            this.state.error ? <Redirect to='/error' /> :
+                this.state.loading ? <Loading /> :
+                    <div className="container-full">
+                        <Navbar categories={this.state.categories} />
+                        <div className="background-construction"></div>
+                        <div className="not-found">
+                            <h1>Algum erro ocorreu :(</h1>
+                            <hr />
+                            <h2>500</h2>
+                            <h5>Ainda estamos trabalhando nessa página =D</h5>
+                        </div>
+                    </div>
         )
     }
 
