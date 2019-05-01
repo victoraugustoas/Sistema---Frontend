@@ -129,7 +129,7 @@ class Main extends Component {
                             headTitle='Heróis nascem no Battlefront'
                             title=' Esse é o <em>Star Wars</em> Battlefront II'
                             description=' Descubra tudo que sempre quis saber sobre os mapas, modos e todos os detalhes da campanha para um jogador e do multiplayer de Star Wars Battlefront II.'
-                            urlImg='https://images2.alphacoders.com/823/823125.png' />
+                            urlImg='https://res.cloudinary.com/dswbfrsv0/image/upload/b_black,o_50/v1556088353/thumb-1920-823125.png' />
                         <div className="container mt-2">
                             <div className="row align-items-center">
                                 <h1 className="col-md-8 col-xl-10 mb-2" style={{ color: "#f1b934" }}>Últimas notícias</h1>
@@ -141,7 +141,7 @@ class Main extends Component {
                                         {this.state.posts && this.renderPosts()}
                                     </div>
                                 </div>
-                                <div className="col-md-4 col-xl-2">
+                                <div className="col-md-4 col-xl-2 mb-3">
                                     <div className="row">
                                         {this.state.posts && this.renderRecents()}
                                     </div>
@@ -153,7 +153,7 @@ class Main extends Component {
                             headTitle='Batalhas Espaciais'
                             title='Ataque com caças estelares'
                             description='Entre na cabine do Caça Estelar de Yoda, da Cimitarra de Darth Maul e em uma frota inteira de outras naves, nas batalhas espaciais multiplayer baseadas em objetivos. Mude o curso da batalha com controles aprimorados e caças estelares personalizáveis, em enfrentamentos gigantescos por todas as três eras cinematográficas de Star Wars .'
-                            urlImg='https://images3.alphacoders.com/823/thumb-1920-823131.jpg' />
+                            urlImg='https://res.cloudinary.com/dswbfrsv0/image/upload/b_black,o_30/v1556087994/thumb-1920-823131.jpg' />
                         <Footer />
                     </div>
         )
