@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
-import TextEditor from '../components/TextEditor/TextEditor'
+import TextEditor from '../../components/TextEditor/TextEditor'
 
 class AddPost extends Component {
 

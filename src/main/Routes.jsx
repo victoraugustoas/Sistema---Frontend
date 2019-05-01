@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 // Import Admin
-import FormLogin from '../admin/form/Login/FormLogin'
-import FormSignUp from '../admin/form/SignUp/FormSignUp'
-import Logged from '../admin/Logged'
-import AddCategory from '../admin/AddCategory/AddCategory'
-import AddPost from '../admin/AddPost'
+import FormLogin from '../pages/admin/form/Login/FormLogin'
+import FormSignUp from '../pages/admin/form/SignUp/FormSignUp'
+import Logged from '../pages/admin/Logged'
+import AddCategory from '../pages/admin/AddCategory/AddCategory'
+import AddPost from '../pages/admin/AddPost'
 
 // Import Pages
 import Main from '../pages/Main/Main'
